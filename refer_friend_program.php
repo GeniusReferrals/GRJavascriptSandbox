@@ -1,14 +1,3 @@
-<?php
-include './api/refer_friend_program_api.php';
-$api = new refer_friend_program_api();
-$arrAdvocatesShareLinks = $api->getAdvocatesShareLinks();
-$arrReferralsSummaryPerOriginReport = $api->getReferralsSummaryPerOriginReport();
-$arrBonusesSummaryPerOriginReport = $api->getBonusesSummaryPerOriginReport();
-$objAdvocate = $api->getAdvocate();
-$arrRedemptionRequests = $api->getRedemptionRequests();
-$arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>

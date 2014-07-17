@@ -1,9 +1,3 @@
-<?php
-include './api/manage_advocate_api.php';
-$api = new manage_advocate_api();
-$arrCampaigns = $api->getCampaigns();
-?>
-
 <div id="referrer-advocate-details" class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -22,18 +16,12 @@ $arrCampaigns = $api->getCampaigns();
                             <label class="control-label required" for="campaing">Campaings *:</label>
                             <select id="campaing" name="campaing" class="form-control">
                                 <option value="">Choose</option>
-                                <?php foreach ($arrCampaigns as $objCampaign) { ?>
-                                <option value="<?php echo $objCampaign->slug ?>"><?php echo $objCampaign->name ?></option>
-                                <?php } ?>  
                             </select>
                         </div>
                         <div class="form-group">
                             <label class="control-label required" for="network">Network *:</label>
                             <select id="network" name="network" class="form-control">
                                 <option value="">Choose</option>
-                                <?php //foreach ($arrNetwork as $objNetwork) { ?>
-                                <option value="<?php //echo $objNetwork->slug ?>"><?php //echo $objNetwork->name ?></option>
-                                <?php //} ?>   
                             </select>
                         </div>
                     </div>

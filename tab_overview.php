@@ -22,7 +22,7 @@
                 <div class="panel-heading">
                     <h4>1</h4>
                     <p style="height: 39px;"><strong>Create a free account</strong></p>
-                    <a class="btn btn-primary" href="{{path('user_signup')}}">Sign up</a>
+                    <a class="btn btn-primary" href="">Sign up</a>
                 </div>
             </div>
         </div>

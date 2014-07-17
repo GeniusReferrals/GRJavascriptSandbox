@@ -44,7 +44,11 @@ $(document).ready(function() {
         var isValid = validateNewAdvocate();
         if (isValid) {
 
-            var aryAdvocate = '{"advocate": {"name":"' + $('#name').val() + '", "lastname":"' + $('#last_name').val() + '", "email":"' + $('#email').val() + '", "payout_threshold":20}}';
+            name = $('#name').val();
+            last_name = $('#last_name').val();
+            email = $('#email').val();
+
+            var aryAdvocate = '{"advocate": {"name":"' + name + '", "lastname":"' + last_name + '", "email":"' + email + '", "payout_threshold":20}}';
             $('#btn1_new_advocate').button('loading');
             $('#btn1_new_advocate').removeClass('btn-primary');
             $('#btn1_new_advocate').addClass('btn-info');
@@ -114,11 +118,9 @@ $(document).ready(function() {
             if ($('#inputLastname').val() != '') {
                 arrFilter.push("email::" + $('#inputEmail').val());
             }
-//            if (arrFilter != '') {
-//                filters = implode('|', arrFilter);
-//            }
-
-//            console.log(arrFilter);
+            if (arrFilter != '') {
+                filters = arrFilter.join('|');
+            }
 
             $('#btn_search_advocate').button('loading');
             $('#btn_search_advocate').removeClass('btn-primary');

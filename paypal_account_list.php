@@ -1,9 +1,3 @@
-<?php
-include './api/refer_friend_program_api.php';
-$api = new refer_friend_program_api();
-$arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods();
-?>
-
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -32,16 +26,6 @@ $arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods();
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <?php foreach ($arrAdvocatePaymentMethods as $objAdvocatePaymentMethods) { ?>
-                                    <tr>
-                                        <td><?php echo $objAdvocatePaymentMethods->description ?></td>
-                                        <td><?php echo $objAdvocatePaymentMethods->username ?></td>
-                                        <td><span class="<?php echo $objAdvocatePaymentMethods->is_active == 0 ? 'glyphicon glyphicon-remove-circle' : 'glyphicon glyphicon-check' ?>"></span></td>
-                                        <td class="actions">
-                                            <a type="button" id="<?php echo $objAdvocatePaymentMethods->id ?>" data-loading-text="Loading..." data-name="<?php echo $objAdvocatePaymentMethods->description ?>" data-email="<?php echo $objAdvocatePaymentMethods->username ?>" data-state="<?php echo $objAdvocatePaymentMethods->is_active ? 0 : 1 ?>" class="activate_desactivate" href="#"><?php echo $objAdvocatePaymentMethods->is_active == 1 ? 'Desactive' : 'Active' ?></a>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
                             </table>
                         </div>
                     </div>

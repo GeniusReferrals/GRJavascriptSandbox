@@ -6,6 +6,15 @@ $(document).ready(function() {
     var client = new gr.client();
     var auth = new gr.auth(apiUsername, apiToken);
 
+    var response = client.getCampaigns(auth, 'genius-referrals');
+    response.success(function(data) {
+
+        $.each(data.data, function(i, elem) {
+            option = $('<option value="' + elem.slug + '">' + elem.name + '</option>');
+            $('select#campaing').append(option);
+        });
+    });
+
     $('#btn_create_referral').click(function(e) {
         e.preventDefault();
         var isValid = validateCreateReferral();

@@ -12,6 +12,9 @@ $(document).ready(function() {
         var isValid = validatePaypalAccount();
         if (isValid) {
 
+            paypal_username = $('#paypal_username').val();
+            paypal_description = $('#paypal_description').val();
+
             if ($('#paypal_is_active').val() === '1')
             {
                 var objResponse1 = client.getAdvocatePaymentMethods(auth, 'genius-referrals', strGRAdvocateToken, 1, 50, 'is_active::true');
@@ -25,9 +28,9 @@ $(document).ready(function() {
             }
 
             if ($('#paypal_is_active').val() === '1')
-                aryPaymentMethod = '{"advocate_payment_method":{"username":"' + $('#paypal_username').val() + '", "description":"' + $('#paypal_description').val() + '", "is_active":"true"}}';
+                aryPaymentMethod = '{"advocate_payment_method":{"username":"' + paypal_username + '", "description":"' + paypal_description + '", "is_active":"true"}}';
             else
-                aryPaymentMethod = '{"advocate_payment_method":{"username":"' + $('#paypal_username').val() + '", "description":"' + $('#paypal_description').val() + '"}}';
+                aryPaymentMethod = '{"advocate_payment_method":{"username":"' + paypal_username + '", "description":"' + paypal_description + '"}}';
 
             $('#btn_new_paypal_account').button('loading');
             $('#btn_new_paypal_account').removeClass('btn-primary');

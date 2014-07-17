@@ -26,9 +26,6 @@
                                     <div class="col-xs-7">
                                         <select id="paypal_account" name="paypal_account" class="form-control">
                                             <option value="">Choose</option>
-                                            <?php foreach ($arrAdvocatePaymentMethods as $objAdvocatePaymentMethods) { ?>
-                                                <option value="<?php echo $objAdvocatePaymentMethods->username ?>"><?php echo $objAdvocatePaymentMethods->username ?></option>
-                                            <?php } ?>
                                         </select>
                                     </div>
                                     <div style="float: right; margin-top: -26px; margin-right: -7px;">
@@ -84,16 +81,6 @@
                         <th>Type</th>
                     </tr>
                 </thead>
-                <?php foreach ($arrRedemptionRequests as $objRedemptionRequests) { ?>
-                    <tr>
-                        <td><?php echo date('M d, Y', strtotime($objRedemptionRequests->created)) ?></td>
-                        <td><?php echo $objRedemptionRequests->amount ?></td>
-                        <td>Referral</td>
-                        <td><?php echo $objRedemptionRequests->_advocate->name ?></td>
-                        <td><?php echo $objRedemptionRequests->request_status_slug ?></td>
-                        <td><?php echo $objRedemptionRequests->request_action_slug ?></td>
-                    </tr>
-                <?php } ?>
             </table>
         </div>
     </div>

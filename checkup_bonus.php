@@ -46,13 +46,13 @@
                                 <div style="margin-bottom: 5px; height: 25px; height: auto;">
                                     <label id="lb_advocate_referrer">Advocate referrer:</label>
                                     <span id="lb_advocate_referrer">
-                                        <a style="text-decoration: underline;" id="" class="advocate_details" href="#" title="{{'advocate.view' | trans()}}" data-toggle="modal"></a>
+                                        <a style="text-decoration: underline;" id="" class="advocate_details" href="#" data-toggle="modal"></a>
                                     </span>
                                 </div>
                                 <div style="margin-bottom: 5px; height: 25px; height: auto;">
                                     <label id="lb_campaing">Campaing:</label>
                                     <span id="lb_campaing">
-                                        <a style="text-decoration: underline;" class="btn-details-campaign" href="" title="{{'btn.view'|trans}}" data-campaign-slug=""></a>
+                                        <a style="text-decoration: underline;" class="btn-details-campaign" href="" data-campaign-slug=""></a>
                                     </span>
                                 </div>
                                 <div style="margin-bottom: 5px; height: 25px; height: auto;">
