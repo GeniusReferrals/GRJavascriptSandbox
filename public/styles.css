@@ -1,0 +1,55 @@
+.container {
+    max-width: 1000px;
+}
+.jumbotron {
+    background-color: #F9F9F9;
+    padding: 25px;
+    font-size: 14px;
+}
+.container .jumbotron {
+    padding: 25px;
+    border-radius: 0px;
+    text-align: inherit;
+}
+.container .jumbotron p{
+    font-size: 15px;
+    font-weight: bold;
+    display: inline;
+}
+.jumbotron .btn {
+    font-size: 14px;
+    padding: 10px 15px;
+}
+#paypalAccountModal .modal-dialog{
+    width: 60%;
+}
+.help-block {
+    color: #737373;
+    display: block;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+ul.help-text li{
+    background: url('images/circle-ok.png') no-repeat 0px 50% transparent;
+    list-style-type: none;
+    margin: 0;
+    padding: 7px 0 0 42px;
+    vertical-align: middle;
+}
+.container_referral{
+    float: left; 
+    width: auto; 
+    text-align: center;
+    margin-right: 15px;
+}
+.div_referral{
+    border: 1px solid white; 
+    height: 28px; 
+    background-color: white; 
+    text-align: center; 
+    vertical-align: super ! important; 
+    padding-top: 2px;
+}
+a:hover{
+    cursor: pointer;
+}
