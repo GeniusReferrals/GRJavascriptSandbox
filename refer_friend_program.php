@@ -22,8 +22,7 @@
         <div class="container">
             <div class="header">
                 <ul class="nav nav-pills pull-right">
-                    <li><a href="index.php">Manage advocate</a></li>
-                    <li><a href="refer_friend_program.php">Refer a friend program</a></li>
+                    <li class="active"><a href="index.php">Manage advocate</a></li>
                 </ul>
                 <h3 class="text-muted">GRJavascriptSandbox</h3>
             </div>
@@ -66,32 +65,35 @@
 
             <div class="footer">
                 <ul class="nav nav-pills pull-left">
-                    <li><a href="index.php">Manage advocate</a></li>
-                    <li><a href="refer_friend_program.php">Refer a friend program</a></li>
+                    <li class="active"><a href="index.php">Manage advocate</a></li>
                 </ul>
                 <div style="clear: both; text-align: center;">
                     <p>Copyright ©2014 GRPHPSandbox. All rights reserved.</p>
                 </div>
             </div>
+            <input type="hidden" value="<?php $_GET['advocate_token'] ?>" id="advocate_token" name="advocate_token">
 
         </div> <!-- /container -->
 
         <script src="public/jquery-2.0.3.min.js"></script>
 
         <script src="public/jquery.validate.min.js"></script>
-        
+
         <script src="public/jquery.validate.defaults.js"></script>
 
         <script src="public/bootstrap/js/bootstrap.min.js"></script>
-        
+
         <script src="public/date.format.js"></script>
-        
-        <script src="../geniusreferrals-api-client.js"></script>
 
         <script src="GRAPIJavascriptClient/geniusreferrals-api-client.js"></script>
-        
-        <script src="public/paypal_account_list.js"></script>
 
+        <script type="text/javascript" src="public/jquery.qrcode.min.js"></script>
+
+        <script src="config/config.js"></script>
+
+        <script type="text/javascript" src="public/refer_friend_program.js"></script>
+
+        <script src="public/paypal_account_list.js"></script>
     </body>
 </html>
 

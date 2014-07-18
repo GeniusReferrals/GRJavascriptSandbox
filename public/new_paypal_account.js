@@ -1,11 +1,14 @@
 
 $(document).ready(function() {
 
-    var apiUsername = 'alain@hlasolutionsgroup.com';
-    var apiToken = '8450103c06dbd58add9d047d761684096ac560ca';
+    var apiUsername = apiConfig.gr_username;
+    var apiToken = apiConfig.gr_auth_token;
 
     var client = new gr.client();
     var auth = new gr.auth(apiUsername, apiToken);
+
+    if (sessionStorage.getItem('strAdvocateToken') != '')
+        var strGRAdvocateToken = sessionStorage.getItem('strAdvocateToken');
 
     $('#btn_new_paypal_account').click(function(e) {
 
@@ -38,38 +41,35 @@ $(document).ready(function() {
             var objResponse2 = client.postAdvocatePaymentMethod(auth, 'genius-referrals', $.parseJSON(aryPaymentMethod));
             objResponse2.success(function(data) {
 
-                arrLocation = objResponse2.getHeader('Location').raw();
-                strLocation = arrLocation[0];
-                arrParts = strLocation.split('/');
-                intAdvocatePaymentMethodId = arrParts.pop();
-
-                var objResponse3 = client.getAdvocatePaymentMethod(auth, 'genius-referrals', strGRAdvocateToken, intAdvocatePaymentMethodId);
+                var objResponse3 = client.getAdvocatePaymentMethods(auth, 'genius-referrals', strGRAdvocateToken, 1, 50);
                 objResponse3.success(function(data) {
-
                     $('#paypal_account').append('<option value="' + data.data.username + '">' + data.data.username + '</option>');
 
-                    if (data.data.is_active == 0)
-                    {
-                        icon_is_active = 'glyphicon glyphicon-remove-circle';
-                        state = 1;
-                        title = 'Active';
-                    }
+                    $('#table_payment td').remove();
+                    $.each(data.data.results, function(i, elem) {
+                        if (elem.is_active == 0)
+                        {
+                            icon_is_active = 'glyphicon glyphicon-remove-circle';
+                            state = 1;
+                            title = 'Active';
+                        }
 
-                    else
-                    {
-                        icon_is_active = 'glyphicon glyphicon-check';
-                        state = 0;
-                        title = 'Desactive';
-                    }
-                    row_account = $('<tr>' +
-                            '<td>' + data.data.description + '</td>' +
-                            '<td>' + data.data.username + '</td>' +
-                            '<td><span class="' + icon_is_active + '"></span></td>' +
-                            '<td class="actions">' +
-                            '<a type="button" id="' + data.data.id + '" data-loading-text="Loading..." data-name="' + data.data.description + '" data-email="' + data.data.username + '" data-state="' + state + '" class="activate_desactivate" onclick="activateDesactivate(\'' + data.data.id + '-' + data.data.description + '-' + data.data.username + '-' + state + '\')">' + title + '</a>' +
-                            '</td>' +
-                            '</tr>');
-                    $('#table_payment').append(row_account);
+                        else
+                        {
+                            icon_is_active = 'glyphicon glyphicon-check';
+                            state = 0;
+                            title = 'Desactive';
+                        }
+                        row_account = $('<tr>' +
+                                '<td>' + elem.description + '</td>' +
+                                '<td>' + elem.username + '</td>' +
+                                '<td><span class="' + icon_is_active + '"></span></td>' +
+                                '<td class="actions">' +
+                                '<a type="button" id="' + elem.id + '" data-loading-text="Loading..." data-name="' + elem.description + '" data-email="' + elem.username + '" data-state="' + state + '" class="activate_desactivate" onclick="activateDesactivate(\'' + elem.id + '-' + elem.description + '-' + elem.username + '-' + state + '\')">' + title + '</a>' +
+                                '</td>' +
+                                '</tr>');
+                        $('#table_payment').append(row_account);
+                    });
 
                     $('#btn_new_paypal_account').button('reset');
                     $('#btn_new_paypal_account').removeClass('btn-info');

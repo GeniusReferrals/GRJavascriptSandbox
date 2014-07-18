@@ -1,15 +1,18 @@
 $(document).ready(function() {
 
-    var apiUsername = 'alain@hlasolutionsgroup.com';
-    var apiToken = '8450103c06dbd58add9d047d761684096ac560ca';
+    var apiUsername = apiConfig.gr_username;
+    var apiToken = apiConfig.gr_auth_token;
 
     var client = new gr.client();
     var auth = new gr.auth(apiUsername, apiToken);
 
+    if (sessionStorage.getItem('strAdvocateToken') != '')
+        var strAdvocateToken = sessionStorage.getItem('strAdvocateToken');
+
     var response = client.getCampaigns(auth, 'genius-referrals');
     response.success(function(data) {
 
-        $.each(data.data, function(i, elem) {
+        $.each(data.data.results, function(i, elem) {
             option = $('<option value="' + elem.slug + '">' + elem.name + '</option>');
             $('select#campaing').append(option);
         });
@@ -20,7 +23,6 @@ $(document).ready(function() {
         var isValid = validateCreateReferral();
         if (isValid)
         {
-            advocate_token = $('input#advocate_token').val();
             email_advocate_referrer = $('input#advocate_referrer').val();
             campaign_slug = $(' select#campaing :selected').val();
             referral_origin_slug = $('select#network :selected').val();
@@ -28,6 +30,7 @@ $(document).ready(function() {
             $('#btn_create_referral').button('loading');
             $('#btn_create_referral').removeClass('btn-primary');
             $('#btn_create_referral').addClass('btn-info');
+
             var objResponse1 = client.getAdvocates(auth, 'genius-referrals', 1, 1, 'email::' + email_advocate_referrer + '');
             objResponse1.success(function(data) {
 
@@ -122,32 +125,32 @@ $(document).ready(function() {
             $('#btn_process_bonus').button('loading');
             $('#btn_process_bonus').removeClass('btn-primary');
             $('#btn_process_bonus').addClass('btn-info');
+
             aryBonus = '{"bonus":{"advocate_token":"' + advocate_token + '","reference":"' + reference + '","amount_of_payments":"' + amount_payments + '","payment_amount":"' + payment_amount + '"}}';
             var objResponse1 = client.postBonuses(auth, 'genius-referrals', $.parseJSON(aryBonus));
             objResponse1.success(function(data) {
 
-                arrLocation = objResponse1.getHeader('Location').raw();
-                strLocation = arrLocation[0];
-                arrParts = strLocation.split('/');
-                intBonusId = arrParts.pop();
+                var objResponse2 = client.getBonuses(auth, 'genius-referrals', 1, 1, '', '-created');
+                objResponse2.success(function(data) {
 
-                var objResponse2 = client.getBonus(auth, 'genius-referrals', intBonusId);
-                var objResponse3 = client.getAdvocate(auth, 'genius-referrals', objResponse2.data.referred_advocate_token);
-                objResponse3.success(function(data) {
+                    intBonusId = data.data.bonus_id;
+                    var objResponse3 = client.getAdvocate(auth, 'genius-referrals', objResponse2.data.referred_advocate_token);
+                    objResponse3.success(function(data) {
 
-                    $('#processBonusModal #status_success span#lb_status').html('Success');
-                    $('#processBonusModal #status_success span#lb_bonus_amount').html(objResponse2.data.amount);
-                    $('#processBonusModal #status_success span#lb_advocates_referrer').html(objResponse3.data.name);
+                        $('#processBonusModal #status_success span#lb_status').html('Success');
+                        $('#processBonusModal #status_success span#lb_bonus_amount').html(objResponse2.data.amount);
+                        $('#processBonusModal #status_success span#lb_advocates_referrer').html(objResponse3.data.name);
 
-                    $('#processBonusModal #container_status_success').css('display', 'block');
-                    $('#processBonusModal #container_status_fail').css('display', 'none');
-                });
-                objResponse3.fail(function(data) {
+                        $('#processBonusModal #container_status_success').css('display', 'block');
+                        $('#processBonusModal #container_status_fail').css('display', 'none');
+                    });
+                    objResponse3.fail(function(data) {
 
-                    $('#processBonusModal #status_fail span#lb_status').html('Fail');
+                        $('#processBonusModal #status_fail span#lb_status').html('Fail');
 
-                    $('#processBonusModal #container_status_fail').css('display', 'block');
-                    $('#processBonusModal #container_status_success').css('display', 'none');
+                        $('#processBonusModal #container_status_fail').css('display', 'block');
+                        $('#processBonusModal #container_status_success').css('display', 'none');
+                    });
                 });
             });
             $('#btn_process_bonus').button('reset');

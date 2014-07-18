@@ -23,7 +23,6 @@
             <div class="header">
                 <ul class="nav nav-pills pull-right">
                     <li class="active"><a href="index.php">Manage advocate</a></li>
-                    <li><a href="refer_friend_program.php">Refer a friend program</a></li>
                 </ul>
                 <h3 class="text-muted">GRJavascriptSandbox</h3>
             </div>
@@ -117,8 +116,7 @@
 
             <div class="footer">
                 <ul class="nav nav-pills pull-left">
-                    <li><a href="index.php">Manage advocate</a></li>
-                    <li><a href="refer_friend_program.php">Refer a friend program</a></li>
+                    <li class="active"><a href="index.php">Manage advocate</a></li>
                 </ul>
                 <div style="clear: both; text-align: center;">
                     <p>Copyright ©2014 GRPHPSandbox. All rights reserved.</p>
@@ -139,6 +137,8 @@
 
         <script src="GRAPIJavascriptClient/geniusreferrals-api-client.js"></script>
 
+        <script src="config/config.js"></script>
+        
         <script src="public/manage_advocate.js"></script>
 
     </body>

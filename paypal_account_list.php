@@ -34,7 +34,6 @@
         </div>
     </div>
 </div>
-
 <script type="text/javascript" src="public/paypal_account_list.js"></script>
 
 

@@ -35,5 +35,4 @@
         </form>
     </div>
 </div>
-
 <script src="public/advocate_actions.js"></script>
