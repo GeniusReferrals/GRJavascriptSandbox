@@ -3,74 +3,82 @@ $(document).ready(function() {
 
     var apiUsername = 'alain@hlasolutionsgroup.com';
     var apiToken = '8450103c06dbd58add9d047d761684096ac560ca';
+
     var client = new gr.client();
     var auth = new gr.auth(apiUsername, apiToken);
+    
+    if (sessionStorage.getItem('strAdvocateToken') != '')
+    {
+        var strGRAdvocateToken = sessionStorage.getItem('strAdvocateToken');
 
-    var response = client.getAdvocatesShareLinks(auth, 'genius-referrals', strGRAdvocateToken);
-    response.success(function(data) {
+        var response = client.getAdvocatesShareLinks(auth, 'genius-referrals', strGRAdvocateToken);
+        response.success(function(data) {
 
-        $('#link_facebook').attr('href', 'https://' + data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'facebook-like');
-        $('#link_twitter').attr('href', 'https://' + data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'twitter-post');
-        $('#link_google').attr('href', 'https://' + data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'google-1');
-        $('#link_linkedin_post').attr('href', 'https://' + data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'linkedin-post');
-        $('#link_pinterest').attr('href', 'https://' + data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'pin-it');
-        $('#personal_url').val('https://' + data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'personal');
-    });
+            $('#qrcode').qrcode(data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'personal');
 
-    var response = client.getReferralsSummaryPerOriginReport(auth, strGRAdvocateToken);
-    response.success(function(data) {
-
-        arrReferralsSummaryPerOrigin = convertSummaryPerOrigin(data.data);
-        $.each(arrReferralsSummaryPerOrigin, function(i, elem) {
-            row = $('<div class="container_referral">' +
-                    '<label style="width: 100%;">' + elem.name + '</label>' +
-                    '<div class="div_referral breadcrumb">' + elem.amount + '</div>' +
-                    '</div>');
-            $('#referral_totals_network').append(row);
+            $('#link_facebook').attr('href', 'https://' + data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'facebook-like');
+            $('#link_twitter').attr('href', 'https://' + data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'twitter-post');
+            $('#link_google').attr('href', 'https://' + data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'google-1');
+            $('#link_linkedin_post').attr('href', 'https://' + data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'linkedin-post');
+            $('#link_pinterest').attr('href', 'https://' + data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'pin-it');
+            $('#personal_url').val('https://' + data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'personal');
         });
-    });
 
-    var response = client.getBonusesSummaryPerOriginReport(auth, strGRAdvocateToken);
-    response.success(function(data) {
+        var response = client.getReferralsSummaryPerOriginReport(auth, strGRAdvocateToken);
+        response.success(function(data) {
 
-        arrBonusesSummaryPerOrigin = convertSummaryPerOrigin(data.data);
-        $.each(arrBonusesSummaryPerOrigin, function(i, elem) {
-            row = $('<div class="container_referral">' +
-                    '<label style="width: 100%;">' + elem.name + '</label>' +
-                    '<div class="div_referral breadcrumb">' + elem.amount + '</div>' +
-                    '</div>');
-            $('#bonuses_totals_network').append(row);
+            arrReferralsSummaryPerOrigin = convertSummaryPerOrigin(data.data);
+            $.each(arrReferralsSummaryPerOrigin, function(i, elem) {
+                row = $('<div class="container_referral">' +
+                        '<label style="width: 100%;">' + elem.name + '</label>' +
+                        '<div class="div_referral breadcrumb">' + elem.amount + '</div>' +
+                        '</div>');
+                $('#referral_totals_network').append(row);
+            });
         });
-    });
 
-    var response = client.getAdvocate(auth, 'genius-referrals', strGRAdvocateToken);
-    response.success(function(data) {
+        var response = client.getBonusesSummaryPerOriginReport(auth, strGRAdvocateToken);
+        response.success(function(data) {
 
-        var response = client.getRedemptionRequests(auth, 'genius-referrals', 1, 50, 'email::' + data.data.email + '');
+            arrBonusesSummaryPerOrigin = convertSummaryPerOrigin(data.data);
+            $.each(arrBonusesSummaryPerOrigin, function(i, elem) {
+                row = $('<div class="container_referral">' +
+                        '<label style="width: 100%;">' + elem.name + '</label>' +
+                        '<div class="div_referral breadcrumb">' + elem.amount + '</div>' +
+                        '</div>');
+                $('#bonuses_totals_network').append(row);
+            });
+        });
+
+        var response = client.getAdvocate(auth, 'genius-referrals', strGRAdvocateToken);
+        response.success(function(data) {
+
+            var response = client.getRedemptionRequests(auth, 'genius-referrals', 1, 50, 'email::' + data.data.email + '');
+            response.success(function(data) {
+
+                $.each(data.data, function(i, elem) {
+                    row_redemption = $('<tr>' +
+                            '<td>' + dateFormat(new Date(elem.created), "mediumDate") + '</td>' +
+                            '<td>' + elem.amount + '</td>' +
+                            '<td> Referral </td>' +
+                            '<td>' + elem._advocate.name + '</td>' +
+                            '<td>' + elem.request_status_slug + '</td>' +
+                            '<td>' + elem.request_action_slug + '</td>' +
+                            '</tr>');
+                    $('#table_redemption').append(row_redemption);
+                });
+            });
+        });
+
+        var response = client.getAdvocatePaymentMethods(auth, 'genius-referrals', strGRAdvocateToken, 1, 50);
         response.success(function(data) {
 
             $.each(data.data, function(i, elem) {
-                row_redemption = $('<tr>' +
-                        '<td>' + dateFormat(new Date(elem.created), "mediumDate") + '</td>' +
-                        '<td>' + elem.amount + '</td>' +
-                        '<td> Referral </td>' +
-                        '<td>' + elem._advocate.name + '</td>' +
-                        '<td>' + elem.request_status_slug + '</td>' +
-                        '<td>' + elem.request_action_slug + '</td>' +
-                        '</tr>');
-                $('#table_redemption').append(row_redemption);
+                option = $('<option value="' + elem.username + '">' + elem.username + '</option>');
+                $('select#paypal_account').append(option);
             });
         });
-    });
-
-    var response = client.getAdvocatePaymentMethods(auth, 'genius-referrals', strGRAdvocateToken, 1, 50);
-    response.success(function(data) {
-        
-        $.each(data.data, function(i, elem) {
-            option = $('<option value="'+ elem.username +'">'+ elem.username +'</option>');
-            $('select#paypal_account').append(option);
-        });
-    });
+    }
 
     $('#paypal_account_actions').click(function(e) {
         var stepRequest = $.ajax({
@@ -84,6 +92,7 @@ $(document).ready(function() {
             }
         });
     });
+
     $('#btn_redeem_bonuses').click(function(e) {
         var isValid = validate();
         if (isValid) {
@@ -98,13 +107,9 @@ $(document).ready(function() {
             var objResponse1 = client.postRedemptionRequest(auth, 'genius-referrals', $.parseJSON(aryRedemptionRequest));
             objResponse1.success(function(data) {
 
-                arrLocation = objResponse1.getHeader('Location').raw();
-                strLocation = arrLocation[0];
-                arrParts = strLocation.split('/');
-                intRedemptionRequestId = arrParts.pop();
-                var objResponse2 = client.getRedemptionRequest(auth, 'genius-referrals', intRedemptionRequestId);
+                var objResponse2 = client.getRedemptionRequests(auth, 'genius-referrals', 1, 50);
                 objResponse2.success(function(data) {
-                    $.each(data.data, function(i, elem) {
+                    $.each(data.data.results, function(i, elem) {
                         row_redemption = $('<tr>' +
                                 '<td>' + dateFormat(new Date(elem.created), "mediumDate") + '</td>' +
                                 '<td>' + elem.amount + '</td>' +

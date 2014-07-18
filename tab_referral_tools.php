@@ -112,7 +112,7 @@
                     <p style="display: inline;"><strong>Print this QR code</strong></p>
                 </div>
                 <div class="col-xs-12 col-sm-6">
-                    <img src="uploads/qrcode.png">
+                    <div id="qrcode"></div>
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <p><strong>Use this QR code to refer our service on:</strong></p>

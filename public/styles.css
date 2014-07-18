@@ -50,6 +50,11 @@ ul.help-text li{
     vertical-align: super ! important; 
     padding-top: 2px;
 }
+#table_advocate a {
+    color: #428BCA;
+    padding-right: 4px;
+    text-decoration: none;
+}
 a:hover{
     cursor: pointer;
 }

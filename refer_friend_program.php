@@ -86,11 +86,13 @@
         
         <script src="public/date.format.js"></script>
         
-        <script src="../geniusreferrals-api-client.js"></script>
-
         <script src="GRAPIJavascriptClient/geniusreferrals-api-client.js"></script>
         
-        <script src="public/paypal_account_list.js"></script>
+        <script type="text/javascript" src="public/jquery.qrcode.min.js"></script>
+        
+        <script type="text/javascript" src="public/refer_friend_program.js"></script>
+        
+        <script src="public/advocate_actions.js"></script>
 
     </body>
 </html>
