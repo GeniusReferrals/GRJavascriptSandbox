@@ -20,7 +20,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label required" for="network">Network *:</label>
-                            <select id="network" name="network" class="form-control">
+                            <select id="referral_origins" name="referral_origins" class="form-control">
                                 <option value="">Choose</option>
                             </select>
                         </div>
@@ -35,4 +35,20 @@
         </form>
     </div>
 </div>
+<link href="public/css/jquery.ui.theme.css" rel="stylesheet">
+
+<link href="public/css/jquery.ui.menu.css" rel="stylesheet">
+
+<link href="public/css/jquery.ui.autocomplete.css" rel="stylesheet">
+
+<script src="public/js/jquery.ui.core.js"></script>
+
+<script src="public/js/jquery.ui.widget.js"></script>
+
+<script src="public/js/jquery.ui.position.js"></script>
+
+<script src="public/js/jquery.ui.menu.js"></script>
+
+<script src="public/js/jquery.ui.autocomplete.js"></script>
+
 <script src="public/advocate_actions.js"></script>

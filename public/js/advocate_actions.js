@@ -18,6 +18,31 @@ $(document).ready(function() {
         });
     });
 
+    var response = client.getReferralOrigins(auth);
+    response.success(function(data) {
+
+        $.each(data.data.results, function(i, elem) {
+            option = $('<option value="' + elem.slug + '">' + elem.name + '</option>');
+            $('select#referral_origins').append(option);
+        });
+    });
+
+    $("#advocate_referrer").autocomplete({
+        source: function(request, response) {
+            arrEmail = [];
+            var objResponse = client.getAdvocates(auth, 'genius-referrals', 1, 50, 'email::' + request.term + '');
+            objResponse.success(function(data) {
+                $.each(data.data.results, function(i, elem) {
+                    arrEmail.push(elem.email);
+                    response(arrEmail);
+                });
+            });
+        },
+        focus: function() {
+            return false;
+        }
+    });
+
     $('#btn_create_referral').click(function(e) {
         e.preventDefault();
         var isValid = validateCreateReferral();
