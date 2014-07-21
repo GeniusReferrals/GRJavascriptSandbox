@@ -1,15 +1,18 @@
 $(document).ready(function() {
 
-    var apiUsername = apiConfig.gr_username;
-    var apiToken = apiConfig.gr_auth_token;
-
+    var strUsername = apiConfig.gr_username;
+    var strAuthToken = apiConfig.gr_auth_token;
+    var strAccount = apiConfig.gr_rfp_account;
+    var strCampaign = apiConfig.gr_rfp_campaign;
+    var strWidgetsPackage = apiConfig.gr_rfp_widgets_package;
+    
     var client = new gr.client();
-    var auth = new gr.auth(apiUsername, apiToken);
+    var auth = new gr.auth(strUsername, strAuthToken);
 
     if (sessionStorage.getItem('strAdvocateToken') != '')
         var strAdvocateToken = sessionStorage.getItem('strAdvocateToken');
 
-    var response = client.getCampaigns(auth, 'genius-referrals');
+    var response = client.getCampaigns(auth, strAccount);
     response.success(function(data) {
 
         $.each(data.data.results, function(i, elem) {
@@ -30,7 +33,7 @@ $(document).ready(function() {
     $("#advocate_referrer").autocomplete({
         source: function(request, response) {
             arrEmail = [];
-            var objResponse = client.getAdvocates(auth, 'genius-referrals', 1, 50, 'email::' + request.term + '');
+            var objResponse = client.getAdvocates(auth, strAccount, 1, 50, 'email::' + request.term + '');
             objResponse.success(function(data) {
                 $.each(data.data.results, function(i, elem) {
                     arrEmail.push(elem.email);
@@ -56,11 +59,11 @@ $(document).ready(function() {
             $('#btn_create_referral').removeClass('btn-primary');
             $('#btn_create_referral').addClass('btn-info');
 
-            var objResponse1 = client.getAdvocates(auth, 'genius-referrals', 1, 1, 'email::' + email_advocate_referrer + '');
+            var objResponse1 = client.getAdvocates(auth, strAccount, 1, 1, 'email::' + email_advocate_referrer + '');
             objResponse1.success(function(data) {
 
                 aryReferral = '{"referral":{"referred_advocate_token":"' + strAdvocateToken + '","referral_origin_slug":"' + referral_origin_slug + '","campaign_slug":"' + campaign_slug + '","http_referer":"http://www.geniusreferrals.com"}}';
-                objResponse2 = client.postReferral(auth, 'genius-referrals', data.data.results[0].token, $.parseJSON(aryReferral));
+                objResponse2 = client.postReferral(auth, strAccount, data.data.results[0].token, $.parseJSON(aryReferral));
                 objResponse2.success(function(data) {
                     $('#btn_create_referral').button('reset');
                     $('#btn_create_referral').removeClass('btn-info');
@@ -85,11 +88,11 @@ $(document).ready(function() {
             $('#btn_checkup_bonus').addClass('btn-info');
 
             aryBonus = '{"advocate_token":"' + advocate_token + '","reference":"' + reference + '", "amount_of_payments":"' + amount_payments + '","payment_amount":"' + payment_amount + '"}';
-            var objResponse1 = client.getBonusesCheckup(auth, 'genius-referrals', $.parseJSON(aryBonus));
+            var objResponse1 = client.getBonusesCheckup(auth, strAccount, $.parseJSON(aryBonus));
             objResponse1.success(function(data) {
 
-                var objResponse2 = client.getAdvocate(auth, 'genius-referrals', objResponse1.data.advocate_referrer_token);
-                var objResponse3 = client.getCampaign(auth, 'genius-referrals', objResponse1.data.campaign_slug);
+                var objResponse2 = client.getAdvocate(auth, strAccount, objResponse1.data.advocate_referrer_token);
+                var objResponse3 = client.getCampaign(auth, strAccount, objResponse1.data.campaign_slug);
 
                 if (data.data.result == 'success') {
                     $('#checkupBonusModal #status_success span#lb_status').html('Success');
@@ -152,14 +155,14 @@ $(document).ready(function() {
             $('#btn_process_bonus').addClass('btn-info');
 
             aryBonus = '{"bonus":{"advocate_token":"' + advocate_token + '","reference":"' + reference + '","amount_of_payments":"' + amount_payments + '","payment_amount":"' + payment_amount + '"}}';
-            var objResponse1 = client.postBonuses(auth, 'genius-referrals', $.parseJSON(aryBonus));
+            var objResponse1 = client.postBonuses(auth, strAccount, $.parseJSON(aryBonus));
             objResponse1.success(function(data) {
 
-                var objResponse2 = client.getBonuses(auth, 'genius-referrals', 1, 1, '', '-created');
+                var objResponse2 = client.getBonuses(auth, strAccount, 1, 1, '', '-created');
                 objResponse2.success(function(data) {
 
                     intBonusId = data.data.bonus_id;
-                    var objResponse3 = client.getAdvocate(auth, 'genius-referrals', objResponse2.data.referred_advocate_token);
+                    var objResponse3 = client.getAdvocate(auth, strAccount, objResponse2.data.referred_advocate_token);
                     objResponse3.success(function(data) {
 
                         $('#processBonusModal #status_success span#lb_status').html('Success');

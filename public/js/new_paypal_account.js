@@ -1,11 +1,14 @@
 
 $(document).ready(function() {
 
-    var apiUsername = apiConfig.gr_username;
-    var apiToken = apiConfig.gr_auth_token;
-
+    var strUsername = apiConfig.gr_username;
+    var strAuthToken = apiConfig.gr_auth_token;
+    var strAccount = apiConfig.gr_rfp_account;
+    var strCampaign = apiConfig.gr_rfp_campaign;
+    var strWidgetsPackage = apiConfig.gr_rfp_widgets_package;
+    
     var client = new gr.client();
-    var auth = new gr.auth(apiUsername, apiToken);
+    var auth = new gr.auth(strUsername, strAuthToken);
 
     if (sessionStorage.getItem('strAdvocateToken') != '')
         var strGRAdvocateToken = sessionStorage.getItem('strAdvocateToken');
@@ -20,12 +23,12 @@ $(document).ready(function() {
 
             if ($('#paypal_is_active').val() === '1')
             {
-                var objResponse1 = client.getAdvocatePaymentMethods(auth, 'genius-referrals', strGRAdvocateToken, 1, 50, 'is_active::true');
+                var objResponse1 = client.getAdvocatePaymentMethods(auth, strAccount, strGRAdvocateToken, 1, 50, 'is_active::true');
                 objResponse1.success(function(data) {
 
                     $.each(data.data.results, function(i, elem) {
                         aryPaymentMethod = '{"advocate_payment_method":{"username":"' + elem.username + '", "description":"' + elem.description + '"}}';
-                        client.putAdvocatePaymentMethod(auth, 'genius-referrals', strGRAdvocateToken, elem.id, $.parseJSON(aryPaymentMethod));
+                        client.putAdvocatePaymentMethod(auth, strAccount, strGRAdvocateToken, elem.id, $.parseJSON(aryPaymentMethod));
                     });
                 });
             }
@@ -38,10 +41,10 @@ $(document).ready(function() {
             $('#btn_new_paypal_account').button('loading');
             $('#btn_new_paypal_account').removeClass('btn-primary');
             $('#btn_new_paypal_account').addClass('btn-info');
-            var objResponse2 = client.postAdvocatePaymentMethod(auth, 'genius-referrals', $.parseJSON(aryPaymentMethod));
+            var objResponse2 = client.postAdvocatePaymentMethod(auth, strAccount, $.parseJSON(aryPaymentMethod));
             objResponse2.success(function(data) {
 
-                var objResponse3 = client.getAdvocatePaymentMethods(auth, 'genius-referrals', strGRAdvocateToken, 1, 50);
+                var objResponse3 = client.getAdvocatePaymentMethods(auth, strAccount, strGRAdvocateToken, 1, 50);
                 objResponse3.success(function(data) {
                     $('#paypal_account').append('<option value="' + data.data.username + '">' + data.data.username + '</option>');
 

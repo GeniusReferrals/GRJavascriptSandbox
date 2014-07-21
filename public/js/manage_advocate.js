@@ -1,13 +1,16 @@
 
 $(document).ready(function() {
 
-    var apiUsername = apiConfig.gr_username;
-    var apiToken = apiConfig.gr_auth_token;
+    var strUsername = apiConfig.gr_username;
+    var strAuthToken = apiConfig.gr_auth_token;
+    var strAccount = apiConfig.gr_rfp_account;
+    var strCampaign = apiConfig.gr_rfp_campaign;
+    var strWidgetsPackage = apiConfig.gr_rfp_widgets_package;
     
     var client = new gr.client();
-    var auth = new gr.auth(apiUsername, apiToken);
+    var auth = new gr.auth(strUsername, strAuthToken);
 
-    var response = client.getAdvocates(auth, 'genius-referrals', 1, 50);
+    var response = client.getAdvocates(auth, strAccount, 1, 50);
     response.success(function(data) {
         $('#table_advocate td').remove();
         $.each(data.data.results, function(i, elem) {
@@ -56,18 +59,18 @@ $(document).ready(function() {
             $('#btn1_new_advocate').removeClass('btn-primary');
             $('#btn1_new_advocate').addClass('btn-info');
 
-            var objResponse1 = client.postAdvocate(auth, 'genius-referrals', $.parseJSON(aryAdvocate));
+            var objResponse1 = client.postAdvocate(auth, strAccount, $.parseJSON(aryAdvocate));
             objResponse1.success(function(data) {
 
-                var objResponse2 = client.getAdvocates(auth, 'genius-referrals', 1, 1, 'email::' + email + '');
+                var objResponse2 = client.getAdvocates(auth, strAccount, 1, 1, 'email::' + email + '');
                 objResponse2.success(function(data) {
 
                     strAdvocateToken = data.data.token;
                     aryAdvocate = '{"currency_code":"USD"}';
-                    var objResponse3 = client.patchAdvocate(auth, 'genius-referrals', strAdvocateToken, $.parseJSON(aryAdvocate));
+                    var objResponse3 = client.patchAdvocate(auth, strAccount, strAdvocateToken, $.parseJSON(aryAdvocate));
                     objResponse3.success(function(data) {
 
-                        var objResponse4 = client.getAdvocate(auth, 'genius-referrals', strAdvocateToken);
+                        var objResponse4 = client.getAdvocate(auth, strAccount, strAdvocateToken);
                         objResponse4.success(function(data) {
 
                             if (typeof data.data._campaign_contract === 'undefined')
@@ -129,7 +132,7 @@ $(document).ready(function() {
             $('#btn_search_advocate').button('loading');
             $('#btn_search_advocate').removeClass('btn-primary');
             $('#btn_search_advocate').addClass('btn-info');
-            var objResponse1 = client.getAdvocates(auth, 'genius-referrals', 1, 50, filters);
+            var objResponse1 = client.getAdvocates(auth, strAccount, 1, 50, filters);
             objResponse1.success(function(data) {
 
                 $('#table_advocate td').remove();

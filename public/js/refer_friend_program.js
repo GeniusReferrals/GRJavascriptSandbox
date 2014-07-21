@@ -1,11 +1,14 @@
 
 $(document).ready(function() {
 
-    var apiUsername = apiConfig.gr_username;
-    var apiToken = apiConfig.gr_auth_token;
-
+    var strUsername = apiConfig.gr_username;
+    var strAuthToken = apiConfig.gr_auth_token;
+    var strAccount = apiConfig.gr_rfp_account;
+    var strCampaign = apiConfig.gr_rfp_campaign;
+    var strWidgetsPackage = apiConfig.gr_rfp_widgets_package;
+    
     var client = new gr.client();
-    var auth = new gr.auth(apiUsername, apiToken);
+    var auth = new gr.auth(strUsername, strAuthToken);
 
     sessionStorage.setItem('strAdvocateToken', $('#advocate_token').val());
 
@@ -13,17 +16,17 @@ $(document).ready(function() {
     {
         var strGRAdvocateToken = sessionStorage.getItem('strAdvocateToken');
 
-        var response = client.getAdvocatesShareLinks(auth, 'genius-referrals', strGRAdvocateToken);
+        var response = client.getAdvocatesShareLinks(auth, strAccount, strGRAdvocateToken);
         response.success(function(data) {
 
-            $('#qrcode').qrcode(data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'personal');
+            $('#qrcode').qrcode(data.data.strCampaign.strWidgetsPackage.'personal');
 
-            $('#link_facebook').attr('href', 'https://' + data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'facebook-like');
-            $('#link_twitter').attr('href', 'https://' + data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'twitter-post');
-            $('#link_google').attr('href', 'https://' + data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'google-1');
-            $('#link_linkedin_post').attr('href', 'https://' + data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'linkedin-post');
-            $('#link_pinterest').attr('href', 'https://' + data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'pin-it');
-            $('#personal_url').val('https://' + data.data.'get-15-for-90-days-1'.'genius-referrals-default-2'.'personal');
+            $('#link_facebook').attr('href', 'https://' + data.data.strCampaign.strWidgetsPackage.'facebook-like');
+            $('#link_twitter').attr('href', 'https://' + data.data.strCampaign.strWidgetsPackage.'twitter-post');
+            $('#link_google').attr('href', 'https://' + data.data.strCampaign.strWidgetsPackage.'google-1');
+            $('#link_linkedin_post').attr('href', 'https://' + data.data.strCampaign.strWidgetsPackage.'linkedin-post');
+            $('#link_pinterest').attr('href', 'https://' + data.data.strCampaign.strWidgetsPackage.'pin-it');
+            $('#personal_url').val('https://' + data.data.strCampaign.strWidgetsPackage.'personal');
         });
 
         var response = client.getReferralsSummaryPerOriginReport(auth, strGRAdvocateToken);
@@ -52,10 +55,10 @@ $(document).ready(function() {
             });
         });
 
-        var response = client.getAdvocate(auth, 'genius-referrals', strGRAdvocateToken);
+        var response = client.getAdvocate(auth, strAccount, strGRAdvocateToken);
         response.success(function(data) {
 
-            var response = client.getRedemptionRequests(auth, 'genius-referrals', 1, 50, 'email::' + data.data.email + '');
+            var response = client.getRedemptionRequests(auth, strAccount, 1, 50, 'email::' + data.data.email + '');
             response.success(function(data) {
 
                 $.each(data.data, function(i, elem) {
@@ -72,7 +75,7 @@ $(document).ready(function() {
             });
         });
 
-        var response = client.getAdvocatePaymentMethods(auth, 'genius-referrals', strGRAdvocateToken, 1, 50);
+        var response = client.getAdvocatePaymentMethods(auth, strAccount, strGRAdvocateToken, 1, 50);
         response.success(function(data) {
 
             $.each(data.data, function(i, elem) {
@@ -106,10 +109,10 @@ $(document).ready(function() {
             $('#btn_redeem_bonuses').button('loading');
             $('#btn_redeem_bonuses').removeClass('btn-primary');
             $('#btn_redeem_bonuses').addClass('btn-info');
-            var objResponse1 = client.postRedemptionRequest(auth, 'genius-referrals', $.parseJSON(aryRedemptionRequest));
+            var objResponse1 = client.postRedemptionRequest(auth, strAccount, $.parseJSON(aryRedemptionRequest));
             objResponse1.success(function(data) {
 
-                var objResponse2 = client.getRedemptionRequests(auth, 'genius-referrals', 1, 50);
+                var objResponse2 = client.getRedemptionRequests(auth, strAccount, 1, 50);
                 objResponse2.success(function(data) {
                     $.each(data.data.results, function(i, elem) {
                         row_redemption = $('<tr>' +
