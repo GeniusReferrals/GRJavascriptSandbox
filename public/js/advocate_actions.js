@@ -3,9 +3,7 @@ $(document).ready(function() {
     var strUsername = apiConfig.gr_username;
     var strAuthToken = apiConfig.gr_auth_token;
     var strAccount = apiConfig.gr_rfp_account;
-    var strCampaign = apiConfig.gr_rfp_campaign;
-    var strWidgetsPackage = apiConfig.gr_rfp_widgets_package;
-    
+
     var client = new gr.client();
     var auth = new gr.auth(strUsername, strAuthToken);
 
@@ -137,6 +135,9 @@ $(document).ready(function() {
                     $('#checkupBonusModal #container_status_success').css('display', 'none');
                 }
             });
+            $('#btn_checkup_bonus').button('reset');
+            $('#btn_checkup_bonus').removeClass('btn-info');
+            $('#btn_checkup_bonus').addClass('btn-primary');
         }
     });
 

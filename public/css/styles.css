@@ -30,7 +30,7 @@
     margin-top: 0px;
 }
 ul.help-text li{
-    background: url('images/circle-ok.png') no-repeat 0px 50% transparent;
+    background: url('../images/circle-ok.png') no-repeat 0px 50% transparent;
     list-style-type: none;
     margin: 0;
     padding: 7px 0 0 42px;

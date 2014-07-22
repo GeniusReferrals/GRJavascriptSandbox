@@ -13,7 +13,7 @@
 
         <link href="public/bootstrap/css/jumbotron-narrow.css" rel="stylesheet">
 
-        <link href="public/styles.css" rel="stylesheet">
+        <link href="public/css/styles.css" rel="stylesheet">
 
     </head>
 
@@ -71,29 +71,27 @@
                     <p>Copyright ©2014 GRPHPSandbox. All rights reserved.</p>
                 </div>
             </div>
-            <input type="hidden" value="<?php $_GET['advocate_token'] ?>" id="advocate_token" name="advocate_token">
+            <input type="hidden" value="<?php echo $_GET['advocate_token'] ?>" id="advocate_token" name="advocate_token">
+
+            <script src="public/js/jquery-2.0.3.min.js"></script>
+
+            <script src="public/js/jquery.validate.min.js"></script>
+
+            <script src="public/js/jquery.validate.defaults.js"></script>
+
+            <script src="public/bootstrap/js/bootstrap.min.js"></script>
+
+            <script src="public/js/date.format.js"></script>
+
+            <script src="GRAPIJavascriptClient/geniusreferrals-api-client.js"></script>
+
+            <script type="text/javascript" src="public/js/jquery.qrcode.min.js"></script>
+
+            <script src="config/config.js"></script>
+
+            <script type="text/javascript" src="public/js/refer_friend_program.js"></script>
 
         </div> <!-- /container -->
-
-        <script src="public/jquery-2.0.3.min.js"></script>
-
-        <script src="public/jquery.validate.min.js"></script>
-
-        <script src="public/jquery.validate.defaults.js"></script>
-
-        <script src="public/bootstrap/js/bootstrap.min.js"></script>
-
-        <script src="public/date.format.js"></script>
-
-        <script src="GRAPIJavascriptClient/geniusreferrals-api-client.js"></script>
-
-        <script type="text/javascript" src="public/jquery.qrcode.min.js"></script>
-
-        <script src="config/config.js"></script>
-
-        <script type="text/javascript" src="public/refer_friend_program.js"></script>
-
-        <script src="public/paypal_account_list.js"></script>
     </body>
 </html>
 

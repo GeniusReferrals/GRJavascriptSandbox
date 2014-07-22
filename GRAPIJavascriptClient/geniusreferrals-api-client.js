@@ -1242,6 +1242,46 @@ gr.client.prototype.getRedemptionRequestStatus = function(auth, redemption_reque
 };
 
 /**
+ * Get referral origins. This is needed when creating (POST) a new referral as referral_origin_slug refers to one of this origins.
+ * 
+ * @param object auth. Genius Referral authentication object
+ * @return jqXHR object
+ */
+gr.client.prototype.getReferralOrigins = function(auth) {
+    auth = typeof auth !== 'undefined' ? auth : '';
+
+    return $.ajax({
+        url: gr.baseUrl + '/utilities/referral-origins',
+        type: 'GET',
+        headers: {
+            "Accept": "application/json; charset=utf-8; version=" + gr.apiVersion,
+            "X-WSSE": auth.generateWSSEHeader()
+        }
+    });
+};
+
+/**
+ * Get a referral origin by a given slug.
+ * 
+ * @param object auth. Genius Referral authentication object
+ * @param string referral_origin_slug. The referral origins slug
+ * @return jqXHR object
+ */
+gr.client.prototype.getReferralOrigin = function(auth, referral_origin_slug) {
+    auth = typeof auth !== 'undefined' ? auth : '';
+    referral_origin_slug = typeof referral_origin_slug !== 'undefined' ? referral_origin_slug : '';
+
+    return $.ajax({
+        url: gr.baseUrl + '/utilities/referral-origins/' + referral_origin_slug,
+        type: 'GET',
+        headers: {
+            "Accept": "application/json; charset=utf-8; version=" + gr.apiVersion,
+            "X-WSSE": auth.generateWSSEHeader()
+        }
+    });
+};
+
+/**
  * Get list of share links.
  * 
  * @param object auth. Genius Referral authentication object

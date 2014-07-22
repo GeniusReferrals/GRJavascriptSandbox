@@ -4,7 +4,7 @@ $(document).ready(function() {
      */
     var apiUsername = 'YOUR_USERNAME';
     var apiToken = 'YOUR_API_TOKEN';
-
+    
     var client = new gr.client();
     var auth = new gr.auth(apiUsername, apiToken);
 
@@ -309,7 +309,29 @@ $(document).ready(function() {
     response.fail(function(data) {
         console.log(data);
     });
-
+    
+    /*
+     * Testing getReferralOrigins
+     */
+    var response = client.getReferralOrigins(auth);
+    response.success(function(data) {
+        console.log(data);
+    });
+    response.fail(function(data) {
+        console.log(data);
+    });
+    
+    /*
+     * Testing getReferralOrigin
+     */
+    var response = client.getReferralOrigin(auth, 'facebook-share');
+    response.success(function(data) {
+        console.log(data);
+    });
+    response.fail(function(data) {
+        console.log(data);
+    });
+    
     /*
      * Testing getBonusesCheckup
      */

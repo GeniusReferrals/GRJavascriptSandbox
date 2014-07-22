@@ -18,10 +18,14 @@
                                 <div class="form-group">
                                     <label for="redemption_type" class="col-sm-5 control-label">Redemption type:</label>
                                     <div class="col-xs-7">
-                                        <input type="text" class="form-control" id="redemption_type" name="redemption_type">
+                                        <select id="redemption_type" name="redemption_type" class="form-control">
+                                            <option value="">Choose</option>
+                                            <option value="pay-out">pay-out</option>
+                                            <option value="credit">credit</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" id="container_paypal_account" style="display: none;">
                                     <label for="paypal_account" class="col-sm-5 control-label">Paypal account:</label>
                                     <div class="col-xs-7">
                                         <select id="paypal_account" name="paypal_account" class="form-control">

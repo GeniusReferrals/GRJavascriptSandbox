@@ -4,9 +4,7 @@ $(document).ready(function() {
     var strUsername = apiConfig.gr_username;
     var strAuthToken = apiConfig.gr_auth_token;
     var strAccount = apiConfig.gr_rfp_account;
-    var strCampaign = apiConfig.gr_rfp_campaign;
-    var strWidgetsPackage = apiConfig.gr_rfp_widgets_package;
-    
+
     var client = new gr.client();
     var auth = new gr.auth(strUsername, strAuthToken);
 
@@ -21,6 +19,10 @@ $(document).ready(function() {
             paypal_username = $('#paypal_username').val();
             paypal_description = $('#paypal_description').val();
 
+            $('#btn_new_paypal_account').button('loading');
+            $('#btn_new_paypal_account').removeClass('btn-primary');
+            $('#btn_new_paypal_account').addClass('btn-info');
+
             if ($('#paypal_is_active').val() === '1')
             {
                 var objResponse1 = client.getAdvocatePaymentMethods(auth, strAccount, strGRAdvocateToken, 1, 50, 'is_active::true');
@@ -32,21 +34,17 @@ $(document).ready(function() {
                     });
                 });
             }
-
             if ($('#paypal_is_active').val() === '1')
-                aryPaymentMethod = '{"advocate_payment_method":{"username":"' + paypal_username + '", "description":"' + paypal_description + '", "is_active":"true"}}';
+                aryPaymentMethod = '{"advocate_payment_method":{"username":"' + paypal_username + '", "description":"' + paypal_description + '", "is_active":true}}';
             else
                 aryPaymentMethod = '{"advocate_payment_method":{"username":"' + paypal_username + '", "description":"' + paypal_description + '"}}';
 
-            $('#btn_new_paypal_account').button('loading');
-            $('#btn_new_paypal_account').removeClass('btn-primary');
-            $('#btn_new_paypal_account').addClass('btn-info');
-            var objResponse2 = client.postAdvocatePaymentMethod(auth, strAccount, $.parseJSON(aryPaymentMethod));
+            var objResponse2 = client.postAdvocatePaymentMethod(auth, strAccount, strGRAdvocateToken, $.parseJSON(aryPaymentMethod));
             objResponse2.success(function(data) {
 
                 var objResponse3 = client.getAdvocatePaymentMethods(auth, strAccount, strGRAdvocateToken, 1, 50);
                 objResponse3.success(function(data) {
-                    $('#paypal_account').append('<option value="' + data.data.username + '">' + data.data.username + '</option>');
+                    $('#paypal_account').append('<option value="' + paypal_username + '">' + paypal_username + '</option>');
 
                     $('#table_payment td').remove();
                     $.each(data.data.results, function(i, elem) {
@@ -94,7 +92,6 @@ function validatePaypalAccount()
         rules: {
             'paypal_username': {required: true, email: true},
             'paypal_description': {required: true},
-            'paypal_is_active': {required: true}
         }
     });
     return $('#form_paypal_account').valid();

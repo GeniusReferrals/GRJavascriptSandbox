@@ -121,26 +121,24 @@
                 <div style="clear: both; text-align: center;">
                     <p>Copyright ©2014 GRPHPSandbox. All rights reserved.</p>
                 </div>
+
+                <script src="public/js/jquery-2.0.3.min.js"></script>
+
+                <script src="public/js/jquery.validate.min.js"></script>
+
+                <script src="public/js/jquery.validate.defaults.js"></script>
+
+                <script src="public/bootstrap/js/bootstrap.min.js"></script>
+
+                <script src="public/js/date.format.js"></script>
+
+                <script src="GRAPIJavascriptClient/geniusreferrals-api-client.js"></script>
+
+                <script src="config/config.js"></script>
+
+                <script src="public/js/manage_advocate.js"></script>
             </div>
-
         </div> <!-- /container -->
-
-        <script src="public/js/jquery-2.0.3.min.js"></script>
-
-        <script src="public/js/jquery.validate.min.js"></script>
-
-        <script src="public/js/jquery.validate.defaults.js"></script>
-
-        <script src="public/bootstrap/js/bootstrap.min.js"></script>
-
-        <script src="public/js/date.format.js"></script>
-
-        <script src="GRAPIJavascriptClient/geniusreferrals-api-client.js"></script>
-
-        <script src="config/config.js"></script>
-        
-        <script src="public/js/manage_advocate.js"></script>
-
     </body>
 </html>
 

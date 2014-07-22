@@ -51,4 +51,4 @@
 
 <script src="public/js/jquery.ui.autocomplete.js"></script>
 
-<script src="public/advocate_actions.js"></script>
+<script src="public/js/advocate_actions.js"></script>

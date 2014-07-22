@@ -34,4 +34,4 @@
         </form>   
     </div>
 </div>
-<script type="text/javascript" src="public/new_paypal_account.js"></script>
+<script type="text/javascript" src="public/js/new_paypal_account.js"></script>
