@@ -64,7 +64,7 @@ $(document).ready(function() {
                 var objResponse2 = client.getAdvocates(auth, strAccount, 1, 1, 'email::' + email + '');
                 objResponse2.success(function(data) {
 
-                    strAdvocateToken = data.data.results.token;
+                    strAdvocateToken = data.data.results[0].token;
                     aryAdvocate = '{"currency_code":"USD"}';
                     var objResponse3 = client.patchAdvocate(auth, strAccount, strAdvocateToken, $.parseJSON(aryAdvocate));
                     objResponse3.success(function(data) {
@@ -84,14 +84,14 @@ $(document).ready(function() {
                                     '<td>' + campaign_contract + '</td>' +
                                     '<td>' + dateFormat(new Date(data.data.created), "mediumDate") + '</td>');
                             row_advocate2 = $('<td class="actions">' +
-                                    '<a id="' + data.message.token + '" class="refer_friend_program" href="refer_friend_program.php?advocate_token=' + data.message.token + '" title="Refer a friend program" data-toggle="modal"><span class="glyphicon glyphicon-chevron-down"></span></a>' +
-                                    '<a id="' + data.data.token + '" class="create_referral" href="#" title="Create referrer" data-toggle="modal" onclick="createReferral(\'' + data.message.token + '\')"><span class="glyphicon glyphicon-pencil"></span></a>');
-                            row_advocate3 = $('<a id="' + data.data.token + '" class="process_bonus" href="#" title="Process bonus" data-toggle="modal" onclick="processBonus(\'' + data.message.token + '\')"><span class="glyphicon glyphicon-retweet"></span></a>' +
-                                    '<a id="' + data.data.token + '" class="checkup_bonus" href="#" title="Checkup bonus" data-toggle="modal" onclick="checkupBonus(\'' + data.message.token + '\')"><span class="glyphicon glyphicon-check"></span></a>');
+                                    '<a id="' + data.data.token + '" class="refer_friend_program" href="refer_friend_program.php?advocate_token=' + data.data.token + '" title="Refer a friend program" data-toggle="modal"><span class="glyphicon glyphicon-chevron-down"></span></a>' +
+                                    '<a id="' + data.data.token + '" class="create_referral" href="#" title="Create referrer" data-toggle="modal" onclick="createReferral(\'' + data.data.token + '\')"><span class="glyphicon glyphicon-pencil"></span></a>');
+                            row_advocate3 = $('<a id="' + data.data.token + '" class="process_bonus" href="#" title="Process bonus" data-toggle="modal" onclick="processBonus(\'' + data.data.token + '\')"><span class="glyphicon glyphicon-retweet"></span></a>' +
+                                    '<a id="' + data.data.token + '" class="checkup_bonus" href="#" title="Checkup bonus" data-toggle="modal" onclick="checkupBonus(\'' + data.data.token + '\')"><span class="glyphicon glyphicon-check"></span></a>');
 
                             $('#table_advocate').append(row_advocate1);
                             row_advocate1.append(row_advocate2);
-                            if (typeof data.message._advocate_referrer !== 'undefined')
+                            if (typeof data.data._advocate_referrer !== 'undefined')
                                 row_advocate2.append(row_advocate3);
 
                             $('#btn1_new_advocate').button('reset');

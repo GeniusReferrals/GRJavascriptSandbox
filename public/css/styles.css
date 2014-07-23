@@ -58,3 +58,19 @@ ul.help-text li{
 a:hover{
     cursor: pointer;
 }
+.chart-holder-pie {
+    float: left;
+    height: 450px;
+    width: 45%;
+}
+.chart-holder-serial {
+    float: left;
+    height: 450px;
+    width: 55%;
+}
+.ui-helper-hidden-accessible{
+    display: none;
+}
+.ui-autocomplete-loading {
+    background: white url('../images/loading_autocomplete.gif') right center no-repeat;
+}

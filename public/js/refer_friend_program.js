@@ -197,20 +197,38 @@ function convertSummaryPerOrigin(arrSummaryPerOrigin) {
     arrNetwork.push({'slug': 'personal-url', 'name': 'PURL'});
     arrNetwork.push({'slug': 'other', 'name': 'Other'});
     flag = false;
-    $.each(arrNetwork, function(i, elemNetwork) {
-        $.each(arrSummaryPerOrigin, function(j, elemSummaryPerOrigin) {
-            if (elemNetwork.slug == elemSummaryPerOrigin.slug) {
-                arrSummaryPerOriginResult.push(elemSummaryPerOrigin);
-                flag = true;
+
+    if (arrSummaryPerOrigin != '')
+    {
+        for (i = 0; i < arrNetwork.length; i++)
+        {
+            for (j = 0; j < arrSummaryPerOrigin.length; j++)
+            {
+                if (arrNetwork[i].slug == arrSummaryPerOrigin[j].slug) {
+                    arrSummaryPerOriginResult.push(arrSummaryPerOrigin[j]);
+                    flag = true;
+                }
+                if (!flag) {
+                    objBonusResult = {};
+                    objBonusResult.name = arrNetwork[i].name;
+                    objBonusResult.amount = 0;
+                    arrSummaryPerOriginResult.push(objBonusResult);
+                }
+                flag = false;
             }
-            if (!flag) {
-                objBonusResult = {};
-                objBonusResult.name = elemNetwork.name;
-                objBonusResult.amount = 0;
-                arrSummaryPerOriginResult.push(objBonusResult);
-            }
-            flag = false;
-        });
-    });
-    return arrSummaryPerOriginResult;
+        }
+        return arrSummaryPerOriginResult;
+    }
+    else
+    {
+        for (i = 0; i < arrNetwork.length; i++)
+        {
+
+            objBonusResult = {};
+            objBonusResult.name = arrNetwork[i].name;
+            objBonusResult.amount = 0;
+            arrSummaryPerOriginResult.push(objBonusResult);
+        }
+        return arrSummaryPerOriginResult;
+    }
 }

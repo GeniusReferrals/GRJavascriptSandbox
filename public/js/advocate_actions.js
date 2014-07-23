@@ -7,8 +7,25 @@ $(document).ready(function() {
     var client = new gr.client();
     var auth = new gr.auth(strUsername, strAuthToken);
 
+    $("#advocate_referrer").autocomplete({
+        source: function(request, response) {
+            arrEmail = [];
+            var objResponse = client.getAdvocates(auth, strAccount, 1, 50, 'email::' + request.term + '');
+            objResponse.success(function(data) {
+                $.each(data.data.results, function(i, elem) {
+                    arrEmail.push(elem.email);
+                    response(arrEmail);
+                });
+            });
+        },
+        focus: function() {
+            return false;
+        }
+    });
+
     if (sessionStorage.getItem('strAdvocateToken') != '')
         var strAdvocateToken = sessionStorage.getItem('strAdvocateToken');
+
 
     var response = client.getCampaigns(auth, strAccount);
     response.success(function(data) {
@@ -26,22 +43,6 @@ $(document).ready(function() {
             option = $('<option value="' + elem.slug + '">' + elem.name + '</option>');
             $('select#referral_origins').append(option);
         });
-    });
-
-    $("#advocate_referrer").autocomplete({
-        source: function(request, response) {
-            arrEmail = [];
-            var objResponse = client.getAdvocates(auth, strAccount, 1, 50, 'email::' + request.term + '');
-            objResponse.success(function(data) {
-                $.each(data.data.results, function(i, elem) {
-                    arrEmail.push(elem.email);
-                    response(arrEmail);
-                });
-            });
-        },
-        focus: function() {
-            return false;
-        }
     });
 
     $('#btn_create_referral').click(function(e) {
