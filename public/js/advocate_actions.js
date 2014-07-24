@@ -7,43 +7,9 @@ $(document).ready(function() {
     var client = new gr.client();
     var auth = new gr.auth(strUsername, strAuthToken);
 
-    $("#advocate_referrer").autocomplete({
-        source: function(request, response) {
-            arrEmail = [];
-            var objResponse = client.getAdvocates(auth, strAccount, 1, 50, 'email::' + request.term + '');
-            objResponse.success(function(data) {
-                $.each(data.data.results, function(i, elem) {
-                    arrEmail.push(elem.email);
-                    response(arrEmail);
-                });
-            });
-        },
-        focus: function() {
-            return false;
-        }
-    });
-
     if (sessionStorage.getItem('strAdvocateToken') != '')
         var strAdvocateToken = sessionStorage.getItem('strAdvocateToken');
 
-
-    var response = client.getCampaigns(auth, strAccount);
-    response.success(function(data) {
-
-        $.each(data.data.results, function(i, elem) {
-            option = $('<option value="' + elem.slug + '">' + elem.name + '</option>');
-            $('select#campaing').append(option);
-        });
-    });
-
-    var response = client.getReferralOrigins(auth);
-    response.success(function(data) {
-
-        $.each(data.data.results, function(i, elem) {
-            option = $('<option value="' + elem.slug + '">' + elem.name + '</option>');
-            $('select#referral_origins').append(option);
-        });
-    });
 
     $('#btn_create_referral').click(function(e) {
         e.preventDefault();
@@ -51,8 +17,8 @@ $(document).ready(function() {
         if (isValid)
         {
             email_advocate_referrer = $('input#advocate_referrer').val();
-            campaign_slug = $(' select#campaing :selected').val();
-            referral_origin_slug = $('select#network :selected').val();
+            campaign_slug = $('select#campaing option:selected').val();
+            referral_origin_slug = $('select#referral_origins option:selected').val();
 
             $('#btn_create_referral').button('loading');
             $('#btn_create_referral').removeClass('btn-primary');
@@ -67,12 +33,17 @@ $(document).ready(function() {
                     $('#btn_create_referral').button('reset');
                     $('#btn_create_referral').removeClass('btn-info');
                     $('#btn_create_referral').addClass('btn-primary');
+
+                    $('#createReferralModal #advocate_referrer').val('');
+                    document.getElementById('campaing').selectedIndex = 0;
+                    document.getElementById('referral_origins').selectedIndex = 0;
                 });
             });
         }
     });
 
     $('#btn_checkup_bonus').click(function(e) {
+
         e.preventDefault();
         var isValid = validateCheckupBonus();
         if (isValid)
@@ -90,16 +61,16 @@ $(document).ready(function() {
             var objResponse1 = client.getBonusesCheckup(auth, strAccount, $.parseJSON(aryBonus));
             objResponse1.success(function(data) {
 
-                var objResponse2 = client.getAdvocate(auth, strAccount, objResponse1.data.advocate_referrer_token);
-                var objResponse3 = client.getCampaign(auth, strAccount, objResponse1.data.campaign_slug);
+                var objResponse2 = client.getAdvocate(auth, strAccount, data.data.advocate_referrer_token);
+                var objResponse3 = client.getCampaign(auth, strAccount, data.data.campaign_slug);
 
                 if (data.data.result == 'success') {
                     $('#checkupBonusModal #status_success span#lb_status').html('Success');
                     $('#checkupBonusModal #status_success span#lb_reference').html(data.data.reference);
-                    $('#checkupBonusModal #status_success .advocate_details').html(objResponse2.data.name);
-                    $('#checkupBonusModal #status_success .advocate_details').attr('id', objResponse2.data.token);
-                    $('#checkupBonusModal #status_success .btn-details-campaign').html(objResponse3.data.name);
-                    $('#checkupBonusModal #status_success .btn-details-campaign').attr('id', objResponse3.data.slug);
+                    $('#checkupBonusModal #status_success .advocate_details').html(objResponse2.responseText.data.name);
+                    $('#checkupBonusModal #status_success .advocate_details').attr('id', objResponse2.responseText.data.token);
+                    $('#checkupBonusModal #status_success .btn-details-campaign').html(objResponse3.responseText.data.name);
+                    $('#checkupBonusModal #status_success .btn-details-campaign').attr('id', objResponse3.responseText.data.slug);
                     $('#checkupBonusModal #status_success span#lb_message').html(data.data.message);
                     $('#checkupBonusModal #container_status_success #div_trace ul').html('');
                     if (data.data.trace != '')
@@ -117,10 +88,10 @@ $(document).ready(function() {
                 else if (data.data.result == 'fail') {
                     $('#checkupBonusModal #status_fail span#lb_status').html('Fail');
                     $('#checkupBonusModal #status_fail span#lb_reference').html(data.data.reference);
-                    $('#checkupBonusModal #status_fail .advocate_details').html(objResponse2.data.name);
-                    $('#checkupBonusModal #status_fail .advocate_details').attr('id', objResponse2.data.token);
-                    $('#checkupBonusModal #status_fail .btn-details-campaign').html(objResponse3.data.name);
-                    $('#checkupBonusModal #status_fail .btn-details-campaign').attr('id', objResponse3.data.slug);
+                    $('#checkupBonusModal #status_fail .advocate_details').html(objResponse2.responseText.data.name);
+                    $('#checkupBonusModal #status_fail .advocate_details').attr('id', objResponse2.responseText.data.token);
+                    $('#checkupBonusModal #status_fail .btn-details-campaign').html(objResponse3.responseText.data.name);
+                    $('#checkupBonusModal #status_fail .btn-details-campaign').attr('id', objResponse3.responseText.data.slug);
                     $('#checkupBonusModal #status_fail span#lb_message').html(data.data.message);
                     $('#checkupBonusModal #container_status_fail #div_trace ul').html('');
                     if (data.data.trace != '')
@@ -135,10 +106,10 @@ $(document).ready(function() {
                     $('#checkupBonusModal #container_status_fail').css('display', 'block');
                     $('#checkupBonusModal #container_status_success').css('display', 'none');
                 }
+                $('#btn_checkup_bonus').button('reset');
+                $('#btn_checkup_bonus').removeClass('btn-info');
+                $('#btn_checkup_bonus').addClass('btn-primary');
             });
-            $('#btn_checkup_bonus').button('reset');
-            $('#btn_checkup_bonus').removeClass('btn-info');
-            $('#btn_checkup_bonus').addClass('btn-primary');
         }
     });
 
@@ -161,15 +132,14 @@ $(document).ready(function() {
             objResponse1.success(function(data) {
 
                 var objResponse2 = client.getBonuses(auth, strAccount, 1, 1, '', '-created');
-                objResponse2.success(function(data) {
+                objResponse2.success(function(dataResponse2) {
 
-                    intBonusId = data.data.bonus_id;
-                    var objResponse3 = client.getAdvocate(auth, strAccount, objResponse2.data.referred_advocate_token);
+                    var objResponse3 = client.getAdvocate(auth, strAccount, dataResponse2.data.results[0].referred_advocate_token);
                     objResponse3.success(function(data) {
 
                         $('#processBonusModal #status_success span#lb_status').html('Success');
-                        $('#processBonusModal #status_success span#lb_bonus_amount').html(objResponse2.data.amount);
-                        $('#processBonusModal #status_success span#lb_advocates_referrer').html(objResponse3.data.name);
+                        $('#processBonusModal #status_success span#lb_bonus_amount').html(dataResponse2.data.results[0].amount);
+                        $('#processBonusModal #status_success span#lb_advocates_referrer').html(data.data.name);
 
                         $('#processBonusModal #container_status_success').css('display', 'block');
                         $('#processBonusModal #container_status_fail').css('display', 'none');
@@ -181,11 +151,11 @@ $(document).ready(function() {
                         $('#processBonusModal #container_status_fail').css('display', 'block');
                         $('#processBonusModal #container_status_success').css('display', 'none');
                     });
+                    $('#btn_process_bonus').button('reset');
+                    $('#btn_process_bonus').removeClass('btn-info');
+                    $('#btn_process_bonus').addClass('btn-primary');
                 });
             });
-            $('#btn_process_bonus').button('reset');
-            $('#btn_process_bonus').removeClass('btn-info');
-            $('#btn_process_bonus').addClass('btn-primary');
         }
     });
 });
