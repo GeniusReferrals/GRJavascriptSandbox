@@ -35,6 +35,7 @@
         </form>
     </div>
 </div>
+
 <link href="public/css/jquery.ui.theme.css" rel="stylesheet">
 
 <link href="public/css/jquery.ui.menu.css" rel="stylesheet">
@@ -50,5 +51,7 @@
 <script src="public/js/jquery.ui.menu.js"></script>
 
 <script src="public/js/jquery.ui.autocomplete.js"></script>
+
+<script src="public/js/autocomplete.js"></script>
 
 <script src="public/js/advocate_actions.js"></script>

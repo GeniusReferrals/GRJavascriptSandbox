@@ -25,7 +25,7 @@ $(document).ready(function() {
                     '<td>' + campaign_contract + '</td>' +
                     '<td>' + dateFormat(new Date(elem.created), "mediumDate") + '</td>');
             row_advocate2 = $('<td class="actions">' +
-                    '<a id="' + elem.token + '" class="refer_friend_program" href="refer_friend_program.php?advocate_token=' + elem.token + '" title="Refer a friend program" data-toggle="modal"><span class="glyphicon glyphicon-chevron-down"></span></a>' +
+                    '<a id="' + elem.token + '" class="refer_friend_program" href="refer_friend_program.php?advocate_token=' + elem.token + '" title="Refer a friend program"><span class="glyphicon glyphicon-chevron-down"></span></a>' +
                     '<a id="' + elem.token + '" class="create_referral" href="#" title="Create referrer" data-toggle="modal" onclick="createReferral(\'' + elem.token + '\')"><span class="glyphicon glyphicon-pencil"></span></a>');
             row_advocate3 = $('<a id="' + elem.token + '" class="process_bonus" href="#" title="Process bonus" data-toggle="modal" onclick="processBonus(\'' + elem.token + '\')"><span class="glyphicon glyphicon-retweet"></span></a>' +
                     '<a id="' + elem.token + '" class="checkup_bonus" href="#" title="Checkup bonus" data-toggle="modal" onclick="checkupBonus(\'' + elem.token + '\')"><span class="glyphicon glyphicon-check"></span></a>');
@@ -84,7 +84,7 @@ $(document).ready(function() {
                                     '<td>' + campaign_contract + '</td>' +
                                     '<td>' + dateFormat(new Date(data.data.created), "mediumDate") + '</td>');
                             row_advocate2 = $('<td class="actions">' +
-                                    '<a id="' + data.data.token + '" class="refer_friend_program" href="refer_friend_program.php?advocate_token=' + data.data.token + '" title="Refer a friend program" data-toggle="modal"><span class="glyphicon glyphicon-chevron-down"></span></a>' +
+                                    '<a id="' + data.data.token + '" class="refer_friend_program" href="refer_friend_program.php?advocate_token=' + data.data.token + '" title="Refer a friend program"><span class="glyphicon glyphicon-chevron-down"></span></a>' +
                                     '<a id="' + data.data.token + '" class="create_referral" href="#" title="Create referrer" data-toggle="modal" onclick="createReferral(\'' + data.data.token + '\')"><span class="glyphicon glyphicon-pencil"></span></a>');
                             row_advocate3 = $('<a id="' + data.data.token + '" class="process_bonus" href="#" title="Process bonus" data-toggle="modal" onclick="processBonus(\'' + data.data.token + '\')"><span class="glyphicon glyphicon-retweet"></span></a>' +
                                     '<a id="' + data.data.token + '" class="checkup_bonus" href="#" title="Checkup bonus" data-toggle="modal" onclick="checkupBonus(\'' + data.data.token + '\')"><span class="glyphicon glyphicon-check"></span></a>');
@@ -149,7 +149,7 @@ $(document).ready(function() {
                             '<td>' + campaign_contract + '</td>' +
                             '<td>' + dateFormat(new Date(elem.created), "mediumDate") + '</td>');
                     row_advocate2 = $('<td class="actions">' +
-                            '<a id="' + elem.token + '" class="refer_friend_program" href="refer_friend_program.php?advocate_token=' + elem.token + '" title="Refer a friend program" data-toggle="modal"><span class="glyphicon glyphicon-chevron-down"></span></a>' +
+                            '<a id="' + elem.token + '" class="refer_friend_program" href="refer_friend_program.php?advocate_token=' + elem.token + '" title="Refer a friend program"><span class="glyphicon glyphicon-chevron-down"></span></a>' +
                             '<a id="' + elem.token + '" class="create_referral" href="#" title="Create referrer" data-toggle="modal" onclick="createReferral(\'' + elem.token + '\')"><span class="glyphicon glyphicon-pencil"></span></a>');
                     row_advocate3 = $('<a id="' + elem.token + '" class="process_bonus" href="#" title="Process bonus" data-toggle="modal" onclick="processBonus(\'' + elem.token + '\')"><span class="glyphicon glyphicon-retweet"></span></a>' +
                             '<a id="' + elem.token + '" class="checkup_bonus" href="#" title="Checkup bonus" data-toggle="modal" onclick="checkupBonus(\'' + elem.token + '\')"><span class="glyphicon glyphicon-check"></span></a>');
