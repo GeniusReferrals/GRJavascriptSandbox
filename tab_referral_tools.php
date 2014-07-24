@@ -88,7 +88,7 @@
                         <div id="wrong_emails_container" style="display: none; margin-bottom: 0px; margin-top: 10px;" class="alert alert-danger alert-dismissable">
                             <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
                         </div>
-                        <button id="btn_send_email" data-loading-text="Loading..." type="submit" class="btn btn-primary" style="float: right;margin-top: 20px;">Send email</button>
+                        <button id="btn_send_email" data-loading-text="Loading..." type="button" class="btn btn-primary" style="float: right;margin-top: 20px;">Send email</button>
                     </form>
                 </div>
                 <div style="clear: both;"></div>

@@ -74,3 +74,24 @@ a:hover{
 .ui-autocomplete-loading {
     background: white url('../images/loading_autocomplete.gif') right center no-repeat;
 }
+#lstadvocate-pagination{
+    text-align: right; 
+}
+a.disabled {
+    text-decoration: none;
+    color: black;
+    cursor: default;
+}
+th{
+    background-color: #E5E5E5 !important;
+}
+img#loading-image{
+    z-index: 10000;
+    position: absolute; 
+    left: 45%; 
+    top: 45%;
+    display: none;
+}
+.alert {
+    padding: 10px;
+}
