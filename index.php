@@ -18,7 +18,8 @@
     </head>
 
     <body>
-
+        <img id="loading-image" src="public/images/loader.gif"/>
+        
         <div class="container">
             <div class="header">
                 <ul class="nav nav-pills pull-right">
@@ -106,7 +107,12 @@
                             <th>Creation date</th>
                             <th>Actions</th>
                         </tr>
+                        <tbody id="lstadvocate"></tbody>
                     </table>
+                    <div id="lstadvocate-pagination" style="display:none">
+                        <a id="lstadvocate-previous" href="#" class="disabled">&laquo; Previous</a> 
+                        <a id="lstadvocate-next" href="#">Next &raquo;</a> 
+                    </div>
                 </div>
             </div>
 
@@ -135,6 +141,8 @@
                 <script src="GRAPIJavascriptClient/geniusreferrals-api-client.js"></script>
 
                 <script src="config/config.js"></script>
+
+                <script src="public/js/jquery.paginate.min.js"></script>
 
                 <script src="public/js/manage_advocate.js"></script>
             </div>
