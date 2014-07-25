@@ -12,6 +12,12 @@ $(document).ready(function() {
 
     sessionStorage.setItem('strAdvocateToken', $('#advocate_token').val());
 
+    if (sessionStorage.getItem('strAdvocateToken') != '')
+        var strGRAdvocateToken = sessionStorage.getItem('strAdvocateToken');
+
+    /**
+     * Show or hide paypal account.
+     */
     $('select#redemption_type').change(function() {
         if ($(this).val() == 'pay-out')
             $('#container_paypal_account').attr('style', 'display:block');
@@ -19,76 +25,90 @@ $(document).ready(function() {
             $('#container_paypal_account').attr('style', 'display:none');
     });
 
-    if (sessionStorage.getItem('strAdvocateToken') != '')
-    {
-        var strGRAdvocateToken = sessionStorage.getItem('strAdvocateToken');
-        var response = client.getAdvocatesShareLinks(auth, strAccount, strGRAdvocateToken);
-        response.success(function(data) {
-            $('#qrcode').qrcode(data.data[strCampaign][strWidgetsPackage]['personal']);
+    /**
+     * Get advocates share links.
+     */
+    var response = client.getAdvocatesShareLinks(auth, strAccount, strGRAdvocateToken);
+    response.success(function(data) {
+        $('#qrcode').qrcode(data.data[strCampaign][strWidgetsPackage]['personal']);
 
-            $('#link_facebook').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['facebook-like']);
-            $('#link_twitter').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['twitter-post']);
-            $('#link_google').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['google-1']);
-            $('#link_linkedin_post').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['linkedin-post']);
-            $('#link_pinterest').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['pin-it']);
-            $('#personal_url').val('https://' + data.data[strCampaign][strWidgetsPackage]['personal']);
+        $('#link_facebook').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['facebook-like']);
+        $('#link_twitter').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['twitter-post']);
+        $('#link_google').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['google-1']);
+        $('#link_linkedin_post').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['linkedin-post']);
+        $('#link_pinterest').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['pin-it']);
+        $('#personal_url').val('https://' + data.data[strCampaign][strWidgetsPackage]['personal']);
+    });
+
+    /**
+     * Get referrals summary per origin report.
+     */
+    var response = client.getReferralsSummaryPerOriginReport(auth, strGRAdvocateToken);
+    response.success(function(data) {
+
+        var arrReferralsSummaryPerOrigin = convertSummaryPerOrigin(data.data);
+        $.each(arrReferralsSummaryPerOrigin, function(i, elem) {
+            row = $('<div class="container_referral">' +
+                    '<label style="width: 100%;">' + elem.name + '</label>' +
+                    '<div class="div_referral breadcrumb">' + elem.amount + '</div>' +
+                    '</div>');
+            $('#referral_totals_network').append(row);
         });
+    });
 
-        var response = client.getReferralsSummaryPerOriginReport(auth, strGRAdvocateToken);
-        response.success(function(data) {
+    /**
+     * Get bonuses summary per origin report.
+     */
+    var response = client.getBonusesSummaryPerOriginReport(auth, strGRAdvocateToken);
+    response.success(function(data) {
 
-            var arrReferralsSummaryPerOrigin = convertSummaryPerOrigin(data.data);
-            $.each(arrReferralsSummaryPerOrigin, function(i, elem) {
-                row = $('<div class="container_referral">' +
-                        '<label style="width: 100%;">' + elem.name + '</label>' +
-                        '<div class="div_referral breadcrumb">' + elem.amount + '</div>' +
-                        '</div>');
-                $('#referral_totals_network').append(row);
-            });
+        var arrBonusesSummaryPerOrigin = convertSummaryPerOrigin(data.data);
+        $.each(arrBonusesSummaryPerOrigin, function(i, elem) {
+            row = $('<div class="container_referral">' +
+                    '<label style="width: 100%;">' + elem.name + '</label>' +
+                    '<div class="div_referral breadcrumb">' + elem.amount + '</div>' +
+                    '</div>');
+            $('#bonuses_totals_network').append(row);
         });
+    });
 
-        var response = client.getBonusesSummaryPerOriginReport(auth, strGRAdvocateToken);
+    /**
+     * Get advocate.
+     */
+    var response = client.getAdvocate(auth, strAccount, strGRAdvocateToken);
+    response.success(function(data) {
+
+        var response = client.getRedemptionRequests(auth, strAccount, 1, 50, 'email::' + data.data.email + '');
         response.success(function(data) {
-
-            var arrBonusesSummaryPerOrigin = convertSummaryPerOrigin(data.data);
-            $.each(arrBonusesSummaryPerOrigin, function(i, elem) {
-                row = $('<div class="container_referral">' +
-                        '<label style="width: 100%;">' + elem.name + '</label>' +
-                        '<div class="div_referral breadcrumb">' + elem.amount + '</div>' +
-                        '</div>');
-                $('#bonuses_totals_network').append(row);
-            });
-        });
-
-        var response = client.getAdvocate(auth, strAccount, strGRAdvocateToken);
-        response.success(function(data) {
-
-            var response = client.getRedemptionRequests(auth, strAccount, 1, 50, 'email::' + data.data.email + '');
-            response.success(function(data) {
-                $.each(data.data.results, function(i, elem) {
-                    row_redemption = $('<tr>' +
-                            '<td>' + dateFormat(new Date(elem.created), "mediumDate") + '</td>' +
-                            '<td>' + elem.amount + '</td>' +
-                            '<td> Referral </td>' +
-                            '<td>' + elem._advocate.name + '</td>' +
-                            '<td>' + elem.request_status_slug + '</td>' +
-                            '<td>' + elem.request_action_slug + '</td>' +
-                            '</tr>');
-                    $('#table_redemption').append(row_redemption);
-                });
-            });
-        });
-
-        var response = client.getAdvocatePaymentMethods(auth, strAccount, strGRAdvocateToken, 1, 50);
-        response.success(function(data) {
-
             $.each(data.data.results, function(i, elem) {
-                option = $('<option value="' + elem.username + '">' + elem.username + '</option>');
-                $('select#paypal_account').append(option);
+                row_redemption = $('<tr>' +
+                        '<td>' + dateFormat(new Date(elem.created), "mediumDate") + '</td>' +
+                        '<td>' + elem.amount + '</td>' +
+                        '<td> Referral </td>' +
+                        '<td>' + elem._advocate.name + '</td>' +
+                        '<td>' + elem.request_status_slug + '</td>' +
+                        '<td>' + elem.request_action_slug + '</td>' +
+                        '</tr>');
+                $('#table_redemption').append(row_redemption);
             });
         });
-    }
+    });
 
+    /**
+     * Get advocate payment methods.
+     */
+    var response = client.getAdvocatePaymentMethods(auth, strAccount, strGRAdvocateToken, 1, 50);
+    response.success(function(data) {
+
+        $.each(data.data.results, function(i, elem) {
+            option = $('<option value="' + elem.username + '">' + elem.username + '</option>');
+            $('select#paypal_account').append(option);
+        });
+    });
+
+    /**
+     * Load modal paypal account.
+     */
     $('#paypal_account_actions').click(function(e) {
         var stepRequest = $.ajax({
             type: "GET",
@@ -102,6 +122,9 @@ $(document).ready(function() {
         });
     });
 
+    /**
+     * Redeem bonuses.
+     */
     $('#btn_redeem_bonuses').click(function(e) {
         var isValid = validate();
         if (isValid) {
@@ -142,6 +165,10 @@ $(document).ready(function() {
             });
         }
     });
+
+    /**
+     * Help actions.
+     */
     $('#referral_tools_next').click(function() {
         $('#overview_tab').removeClass('active');
         $('#referral_tools_tab').addClass('active');
@@ -173,6 +200,10 @@ $(document).ready(function() {
         $('#content_tab_redeem_bonuses').addClass('active');
     });
 });
+
+/**
+ * Validate form_redeem_bonuses.
+ */
 function validate()
 {
     $('#form_redeem_bonuses').validate({
@@ -184,6 +215,9 @@ function validate()
     return $('#form_redeem_bonuses').valid();
 }
 
+/**
+ * Help method.
+ */
 function convertSummaryPerOrigin(arrSummaryPerOrigin) {
 
     arrNetwork = [];

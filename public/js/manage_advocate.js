@@ -8,6 +8,9 @@ $(document).ready(function() {
     var client = new gr.client();
     var auth = new gr.auth(strUsername, strAuthToken);
 
+    /**
+     * Get advocates.
+     */
     $("body").css('opacity', '0.5');
     $("body img#loading-image").show();
     var response = client.getAdvocates(auth, strAccount, 1, 50);
@@ -27,10 +30,10 @@ $(document).ready(function() {
                     '<td>' + campaign_contract + '</td>' +
                     '<td>' + dateFormat(new Date(elem.created), "mediumDate") + '</td>');
             row_advocate2 = $('<td class="actions">' +
-                    '<a id="' + elem.token + '" class="refer_friend_program" href="refer_friend_program.php?advocate_token=' + elem.token + '" title="Refer a friend program"><span class="glyphicon glyphicon-chevron-down"></span></a>' +
-                    '<a id="' + elem.token + '" class="create_referral" href="#" title="Create referrer" data-toggle="modal" onclick="createReferral(\'' + elem.token + '\')"><span class="glyphicon glyphicon-pencil"></span></a>');
-            row_advocate3 = $('<a id="' + elem.token + '" class="process_bonus" href="#" title="Process bonus" data-toggle="modal" onclick="processBonus(\'' + elem.token + '\')"><span class="glyphicon glyphicon-retweet"></span></a>' +
-                    '<a id="' + elem.token + '" class="checkup_bonus" href="#" title="Checkup bonus" data-toggle="modal" onclick="checkupBonus(\'' + elem.token + '\')"><span class="glyphicon glyphicon-check"></span></a>');
+                    '<a id="' + elem.token + '" href="refer_friend_program.php?advocate_token=' + elem.token + '" title="Refer a friend program"><span class="glyphicon glyphicon-chevron-down"></span></a>' +
+                    '<a id="' + elem.token + '" href="#" title="Create referrer" data-toggle="modal" onclick="createReferral(\'' + elem.token + '\')"><span class="glyphicon glyphicon-pencil"></span></a>');
+            row_advocate3 = $('<a id="' + elem.token + '" href="#" title="Process bonus" data-toggle="modal" onclick="processBonus(\'' + elem.token + '\')"><span class="glyphicon glyphicon-retweet"></span></a>' +
+                    '<a id="' + elem.token + '" href="#" title="Checkup bonus" data-toggle="modal" onclick="checkupBonus(\'' + elem.token + '\')"><span class="glyphicon glyphicon-check"></span></a>');
 
             $('#table_advocate tbody#lstadvocate').append(row_advocate1);
             row_advocate1.append(row_advocate2);
@@ -50,6 +53,9 @@ $(document).ready(function() {
         $('#new_advocate_container').hide();
     });
 
+    /**
+     * Create advocate.
+     */
     $('#btn1_new_advocate').click(function() {
         var isValid = validateNewAdvocate();
         if (isValid) {
@@ -84,6 +90,9 @@ $(document).ready(function() {
         }
     });
 
+    /**
+     * Search advocates.
+     */
     $('#btn_search_advocate').click(function() {
 
         if ($('#inputName').val() != '' || $('#inputLastname').val() != '' || $('#inputEmail').val() != '')
@@ -129,10 +138,10 @@ $(document).ready(function() {
                                     '<td>' + campaign_contract + '</td>' +
                                     '<td>' + dateFormat(new Date(elem.created), "mediumDate") + '</td>');
                             row_advocate2 = $('<td class="actions">' +
-                                    '<a id="' + elem.token + '" class="refer_friend_program" href="refer_friend_program.php?advocate_token=' + elem.token + '" title="Refer a friend program"><span class="glyphicon glyphicon-chevron-down"></span></a>' +
-                                    '<a id="' + elem.token + '" class="create_referral" href="#" title="Create referrer" data-toggle="modal" onclick="createReferral(\'' + elem.token + '\')"><span class="glyphicon glyphicon-pencil"></span></a>');
-                            row_advocate3 = $('<a id="' + elem.token + '" class="process_bonus" href="#" title="Process bonus" data-toggle="modal" onclick="processBonus(\'' + elem.token + '\')"><span class="glyphicon glyphicon-retweet"></span></a>' +
-                                    '<a id="' + elem.token + '" class="checkup_bonus" href="#" title="Checkup bonus" data-toggle="modal" onclick="checkupBonus(\'' + elem.token + '\')"><span class="glyphicon glyphicon-check"></span></a>');
+                                    '<a id="' + elem.token + '" href="refer_friend_program.php?advocate_token=' + elem.token + '" title="Refer a friend program"><span class="glyphicon glyphicon-chevron-down"></span></a>' +
+                                    '<a id="' + elem.token + '" href="#" title="Create referrer" data-toggle="modal" onclick="createReferral(\'' + elem.token + '\')"><span class="glyphicon glyphicon-pencil"></span></a>');
+                            row_advocate3 = $('<a id="' + elem.token + '" href="#" title="Process bonus" data-toggle="modal" onclick="processBonus(\'' + elem.token + '\')"><span class="glyphicon glyphicon-retweet"></span></a>' +
+                                    '<a id="' + elem.token + '" href="#" title="Checkup bonus" data-toggle="modal" onclick="checkupBonus(\'' + elem.token + '\')"><span class="glyphicon glyphicon-check"></span></a>');
 
                             $('#table_advocate').append(row_advocate1);
                             row_advocate1.append(row_advocate2);
@@ -167,64 +176,9 @@ $(document).ready(function() {
     });
 });
 
-$('.create_referral').click(function(e) {
-    e.preventDefault();
-    advocate_token = $(this).attr('id');
-    var stepRequest = $.ajax({
-        type: "GET",
-        url: 'create_referral.php',
-        data: {'advocate_token': advocate_token}
-    });
-    $('#createReferralModal').modal('show');
-    stepRequest.done(function(response) {
-        if (response) {
-            $('#createReferralModal').html(response);
-        }
-    });
-});
-
-$('.checkup_bonus').click(function(e) {
-    e.preventDefault();
-    advocate_token = $(this).attr('id');
-    var stepRequest = $.ajax({
-        type: "GET",
-        url: 'checkup_bonus.php',
-        data: {'advocate_token': advocate_token}
-    });
-    $('#checkupBonusModal').modal('show');
-    stepRequest.done(function(response) {
-        if (response) {
-            $('#checkupBonusModal').html(response);
-            $('#checkupBonusModal').html(response);
-            $('#checkupBonusModal #reference').val('');
-            $('#checkupBonusModal #amount_payments').val('');
-            $('#checkupBonusModal #payment_amount').val('');
-            $('#checkupBonusModal #container_status_success').css('display', 'none');
-            $('#checkupBonusModal #container_status_fail').css('display', 'none');
-        }
-    });
-});
-
-$('.process_bonus').click(function(e) {
-    e.preventDefault();
-    advocate_token = $(this).attr('id');
-    var stepRequest = $.ajax({
-        type: "GET",
-        url: 'process_bonus.php',
-        data: {'advocate_token': advocate_token}
-    });
-    $('#processBonusModal').modal('show');
-    stepRequest.done(function(response) {
-        if (response) {
-            $('#processBonusModal').html(response);
-            $('#processBonusModal #reference').val('');
-            $('#processBonusModal #amount_payments').val('');
-            $('#processBonusModal #payment_amount').val('');
-            $('#processBonusModal #container_status_success').css('display', 'none');
-            $('#processBonusModal #container_status_fail').css('display', 'none');
-        }
-    });
-});
+/**
+ * Validate form_new_advocate.
+ */
 function validateNewAdvocate()
 {
     $('#form_new_advocate').validate({
@@ -237,6 +191,9 @@ function validateNewAdvocate()
     return $('#form_new_advocate').valid();
 }
 
+/**
+ * Validate form_seach_advocate.
+ */
 function validateSearchAdvocate()
 {
     $('#form_seach_advocate').validate({
@@ -247,6 +204,9 @@ function validateSearchAdvocate()
     return $('#form_seach_advocate').valid();
 }
 
+/**
+ * Load modal add referrer.
+ */
 function createReferral(advocate_token)
 {
     var stepRequest = $.ajax({
@@ -261,6 +221,10 @@ function createReferral(advocate_token)
         }
     });
 }
+
+/**
+ * Load modal checkup bonus.
+ */
 function checkupBonus(advocate_token)
 {
     var stepRequest = $.ajax({
@@ -281,6 +245,10 @@ function checkupBonus(advocate_token)
         }
     });
 }
+
+/**
+ * Load modal process bonus.
+ */
 function processBonus(advocate_token)
 {
     var stepRequest = $.ajax({

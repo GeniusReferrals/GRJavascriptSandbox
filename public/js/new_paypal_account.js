@@ -11,6 +11,9 @@ $(document).ready(function() {
     if (sessionStorage.getItem('strAdvocateToken') != '')
         var strGRAdvocateToken = sessionStorage.getItem('strAdvocateToken');
 
+    /**
+     * New paypal account.
+     */
     $('#btn_new_paypal_account').click(function(e) {
 
         var isValid = validatePaypalAccount();
@@ -86,6 +89,9 @@ $(document).ready(function() {
     });
 });
 
+/**
+ * Validate form_paypal_account.
+ */
 function validatePaypalAccount()
 {
     $('#form_paypal_account').validate({

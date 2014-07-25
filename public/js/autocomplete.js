@@ -6,7 +6,10 @@ $(document).ready(function() {
 
     var client = new gr.client();
     var auth = new gr.auth(strUsername, strAuthToken);
-    
+
+    /**
+     * Search advocate referer.
+     */
     $("#advocate_referrer").autocomplete({
         source: function(request, response) {
             arrEmail = [];
@@ -23,6 +26,9 @@ $(document).ready(function() {
         }
     });
 
+    /**
+     * Get campaigns.
+     */
     var response = client.getCampaigns(auth, strAccount);
     response.success(function(data) {
 
@@ -32,6 +38,9 @@ $(document).ready(function() {
         });
     });
 
+    /**
+     * Get referral origins.
+     */
     var response = client.getReferralOrigins(auth);
     response.success(function(data) {
 
