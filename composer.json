@@ -1,0 +1,24 @@
+{
+    "name": "GRJavascriptSandbox",
+    "description": "The \"GRJavascriptSandbox\" project",
+    "keywords": ["geniusreferrals", "GRJavascriptSandbox"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "GRJavascriptSandbox",
+            "email": "dev@geniusreferrals.com",
+            "homepage": "http://www.geniusreferrals.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/GeniusReferrals/GRJavascriptSandbox/issues"
+    },
+    "require": {
+        "guzzle/guzzle": "dev-master"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}

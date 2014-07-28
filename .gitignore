@@ -1,0 +1,4 @@
+/vendor/composer/
+/vendor/guzzle/
+/vendor/symfony/
+/vendor/autoload.php

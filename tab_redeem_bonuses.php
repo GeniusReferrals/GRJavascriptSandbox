@@ -89,12 +89,3 @@
         </div>
     </div>
 </div>
-
-<style type="text/css">
-    .help-block {
-        color: #737373;
-        display: none !important;
-        margin-bottom: 0;
-        margin-top: 0;
-    }
-</style>

@@ -42,16 +42,16 @@
 
 <link href="public/css/jquery.ui.autocomplete.css" rel="stylesheet">
 
-<script src="public/js/jquery.ui.core.js"></script>
+<script type="text/javascript" src="public/js/jquery.ui.core.js"></script>
 
-<script src="public/js/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="public/js/jquery.ui.widget.js"></script>
 
-<script src="public/js/jquery.ui.position.js"></script>
+<script type="text/javascript" src="public/js/jquery.ui.position.js"></script>
 
-<script src="public/js/jquery.ui.menu.js"></script>
+<script type="text/javascript" src="public/js/jquery.ui.menu.js"></script>
 
-<script src="public/js/jquery.ui.autocomplete.js"></script>
+<script type="text/javascript" src="public/js/jquery.ui.autocomplete.js"></script>
 
-<script src="public/js/autocomplete.js"></script>
+<script type="text/javascript" src="public/js/autocomplete.js"></script>
 
-<script src="public/js/advocate_actions.js"></script>
+<script type="text/javascript" src="public/js/advocate_actions.js"></script>
