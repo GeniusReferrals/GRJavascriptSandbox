@@ -9,15 +9,35 @@ Instalación:
 
 El proceso de instalación de esta aplicación GRJavascriptSandbox es muy sencillo 
 
-### 1- Clone la aplicación usando git: 
+# 1- Instalar aplicación GRJavascriptSandbox. Puede escoger cualquiera de estas 2 opciones:
 
+### 1- Clone la aplicación usando git: 
 ```
 git clone git@github.com:GeniusReferrals/GRJavascriptSandbox.git
 ```
 
-#### O
+### 2- Descargar la aplicación compactada utilizando este vínculo [GRJavascriptSandbox](https://github.com/GeniusReferrals/GRJavascriptSandbox/archive/master.zip).
 
-### 2- Descargue la aplicación compactada utilizando este vínculo [GRJavascriptSandbox](https://github.com/GeniusReferrals/GRJavascriptSandbox/archive/master.zip).
+
+# 2- Instalar vendor GUZZLE con sus dependencias, necesarias para el desarrollo de la aplicación GRJavascriptSandbox.
+
+### Usando Composer
+
+Recomendamos composer para intallar la aplicación.
+
+#### 1- Installar Composer
+
+```cd``` en el directorio de la aplicación (ej: my_project) y ejecute:
+
+```
+curl -sS https://getcomposer.org/installer | php
+```
+
+#### 2- Adicionar el packete GUZZLE como una dependencia ejecutando:  
+
+```
+php composer.phar require guzzle/guzzle:~3.7
+```
 
 
 Estructura de la aplicación
@@ -27,22 +47,22 @@ La aplicación consta de 2 páginas que se describen a continuación:
 
 ### 1- Manage advocate, en la cual se pueden realizar las siguientes funcionalidades::
 
-1- List advocate
-2- Search advocate
-3- Create advocate
+#### 1- List advocate
+#### 2- Search advocate
+#### 3- Create advocate
 
 Por cada advocate se pueden realizar las siguientes funcionalidades:
 
-1- Refer a friend program
-2- Create referrer
-3- Process bonus
-4- Checkup bonus
+#### 1- Refer a friend program
+#### 2- Create referrer
+#### 3- Process bonus
+#### 4- Checkup bonus
 
 ### 2- Refer a friend program (Consta de 4 tabs)
 
-1- Overview
-2- Referral tools
-3- Bonuses earned
-4- Redeem bonuses
+#### 1- Overview
+#### 2- Referral tools
+#### 3- Bonuses earned
+#### 4- Redeem bonuses
 
 Para reportar un problema utilice [Github issue tracker.](https://github.com/GeniusReferrals/GRJavascriptSandbox/issues)

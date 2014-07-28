@@ -71,27 +71,42 @@
                     <p>Copyright ©2014 GRPHPSandbox. All rights reserved.</p>
                 </div>
             </div>
+
+            <input type="hidden" id="data" data-amcharts-images="public/images/amcharts/"/>
+            <input type="hidden" id="averages_share_daily_participation" data-averages-share=""/>
+            <input type="hidden" id="totals_share_daily_participation" data-totals-share=""/>
+            <input type="hidden" id="averages_click_daily_participation" data-averages-click=""/>
+            <input type="hidden" id="totals_click_daily_participation" data-totals-click=""/>
+            <input type="hidden" id="averages_daily_participation" data-averages-participation=""/>
+            <input type="hidden" id="totals_daily_participation" data-totals-participation=""/>
+            <input type="hidden" id="averages_bonuses_daily_given" data-averages-bonuses=""/>
+            <input type="hidden" id="totals_bonuses_daily_given" data-totals-bonuses=""/>
             <input type="hidden" value="<?php echo $_GET['advocate_token'] ?>" id="advocate_token" name="advocate_token">
 
-            <script src="public/js/jquery-2.0.3.min.js"></script>
-
-            <script src="public/js/jquery.validate.min.js"></script>
-
-            <script src="public/js/jquery.validate.defaults.js"></script>
-
-            <script src="public/bootstrap/js/bootstrap.min.js"></script>
-
-            <script src="public/js/date.format.js"></script>
-
-            <script src="GRAPIJavascriptClient/geniusreferrals-api-client.js"></script>
-
-            <script type="text/javascript" src="public/js/jquery.qrcode.min.js"></script>
-
-            <script src="config/config.js"></script>
-
-            <script type="text/javascript" src="public/js/refer_friend_program.js"></script>
-
         </div> <!-- /container -->
+
+        <script type="text/javascript" src="public/js/jquery-2.0.3.min.js"></script>
+
+        <script type="text/javascript" src="public/js/jquery.validate.min.js"></script>
+
+        <script type="text/javascript" src="public/js/jquery.validate.defaults.js"></script>
+
+        <script type="text/javascript" src="public/bootstrap/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="public/js/date.format.js"></script>
+
+        <script type="text/javascript" src="GRAPIJavascriptClient/geniusreferrals-api-client.js"></script>
+
+        <script type="text/javascript" src="public/js/jquery.qrcode.min.js"></script>
+
+        <script type="text/javascript" src="config/config.js"></script>
+
+        <script type="text/javascript" src="public/js/amcharts/amcharts.js"></script>
+        <script type="text/javascript" src="public/js/amcharts/pie.js"></script>
+        <script type="text/javascript" src="public/js/amcharts/serial.js"></script>
+        <script type="text/javascript" src="public/js/charts.js"></script>
+
+        <script type="text/javascript" src="public/js/refer_friend_program.js"></script>
     </body>
 </html>
 
