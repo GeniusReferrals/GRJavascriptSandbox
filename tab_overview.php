@@ -31,7 +31,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4>2</h4>
-                    <p><strong>Start referring the service</strong></p>
+                    <p style="height: 39px;"><strong>Start referring the service</strong></p>
                     <button id="referral_tools_next" class="btn btn-primary">Learn more</button>
                 </div>
             </div>
