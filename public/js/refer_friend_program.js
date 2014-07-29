@@ -34,17 +34,17 @@ $(document).ready(function() {
     /**
      * Get advocates share links.
      */
-    var response = client.getAdvocatesShareLinks(auth, strAccount, strGRAdvocateToken);
-    response.success(function(data) {
-        $('#qrcode').qrcode(data.data[strCampaign][strWidgetsPackage]['personal']);
-
-        $('#link_facebook').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['facebook-like']);
-        $('#link_twitter').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['twitter-post']);
-        $('#link_google').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['google-1']);
-        $('#link_linkedin_post').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['linkedin-post']);
-        $('#link_pinterest').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['pin-it']);
-        $('#personal_url').val('https://' + data.data[strCampaign][strWidgetsPackage]['personal']);
-    });
+//    var response = client.getAdvocatesShareLinks(auth, strAccount, strGRAdvocateToken);
+//    response.success(function(data) {
+//        $('#qrcode').qrcode(data.data[strCampaign][strWidgetsPackage]['personal']);
+//
+//        $('#link_facebook').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['facebook-like']);
+//        $('#link_twitter').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['twitter-post']);
+//        $('#link_google').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['google-1']);
+//        $('#link_linkedin_post').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['linkedin-post']);
+//        $('#link_pinterest').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['pin-it']);
+//        $('#personal_url').val('https://' + data.data[strCampaign][strWidgetsPackage]['personal']);
+//    });
 
     /**
      * Get referrals summary per origin report.
@@ -52,6 +52,7 @@ $(document).ready(function() {
     var response = client.getReferralsSummaryPerOriginReport(auth, strGRAdvocateToken);
     response.success(function(data) {
 
+        $('#referral_totals_network').html('');
         var arrReferralsSummaryPerOrigin = convertSummaryPerOrigin(data.data);
         $.each(arrReferralsSummaryPerOrigin, function(i, elem) {
             row = $('<div class="container_referral">' +
@@ -65,52 +66,53 @@ $(document).ready(function() {
     /**
      * Get bonuses summary per origin report.
      */
-    var response = client.getBonusesSummaryPerOriginReport(auth, strGRAdvocateToken);
-    response.success(function(data) {
-
-        var arrBonusesSummaryPerOrigin = convertSummaryPerOrigin(data.data);
-        $.each(arrBonusesSummaryPerOrigin, function(i, elem) {
-            row = $('<div class="container_referral">' +
-                    '<label style="width: 100%;">' + elem.name + '</label>' +
-                    '<div class="div_referral breadcrumb">' + elem.amount + '</div>' +
-                    '</div>');
-            $('#bonuses_totals_network').append(row);
-        });
-    });
+//    var response = client.getBonusesSummaryPerOriginReport(auth, strGRAdvocateToken);
+//    response.success(function(data) {
+//
+//        $('#bonuses_totals_network').html('');
+//        var arrBonusesSummaryPerOrigin = convertSummaryPerOrigin(data.data);
+//        $.each(arrBonusesSummaryPerOrigin, function(i, elem) {
+//            row = $('<div class="container_referral">' +
+//                    '<label style="width: 100%;">' + elem.name + '</label>' +
+//                    '<div class="div_referral breadcrumb">' + elem.amount + '</div>' +
+//                    '</div>');
+//            $('#bonuses_totals_network').append(row);
+//        });
+//    });
 
     /**
      * Get advocate.
      */
-    var response = client.getAdvocate(auth, strAccount, strGRAdvocateToken);
-    response.success(function(data) {
-
-        var response = client.getRedemptionRequests(auth, strAccount, 1, 50, 'email::' + data.data.email + '');
-        response.success(function(data) {
-            $.each(data.data.results, function(i, elem) {
-                row_redemption = $('<tr>' +
-                        '<td>' + dateFormat(new Date(elem.created), "mediumDate") + '</td>' +
-                        '<td>' + elem.amount + '</td>' +
-                        '<td> Referral </td>' +
-                        '<td>' + elem._advocate.name + '</td>' +
-                        '<td>' + elem.request_status_slug + '</td>' +
-                        '<td>' + elem.request_action_slug + '</td>' +
-                        '</tr>');
-                $('#table_redemption').append(row_redemption);
-            });
-        });
-    });
+//    var response = client.getAdvocate(auth, strAccount, strGRAdvocateToken);
+//    response.success(function(data) {
+//
+//        var response = client.getRedemptionRequests(auth, strAccount, 1, 50, 'email::' + data.data.email + '');
+//        response.success(function(data) {
+//            $.each(data.data.results, function(i, elem) {
+//                row_redemption = $('<tr>' +
+//                        '<td>' + dateFormat(new Date(elem.created), "mediumDate") + '</td>' +
+//                        '<td>' + elem.amount + '</td>' +
+//                        '<td> Referral </td>' +
+//                        '<td>' + elem._advocate.name + '</td>' +
+//                        '<td>' + elem.request_status_slug + '</td>' +
+//                        '<td>' + elem.request_action_slug + '</td>' +
+//                        '</tr>');
+//                $('#table_redemption').append(row_redemption);
+//            });
+//        });
+//    });
 
     /**
      * Get advocate payment methods.
      */
-    var response = client.getAdvocatePaymentMethods(auth, strAccount, strGRAdvocateToken, 1, 50);
-    response.success(function(data) {
-
-        $.each(data.data.results, function(i, elem) {
-            option = $('<option value="' + elem.username + '">' + elem.username + '</option>');
-            $('select#paypal_account').append(option);
-        });
-    });
+//    var response = client.getAdvocatePaymentMethods(auth, strAccount, strGRAdvocateToken, 1, 50);
+//    response.success(function(data) {
+//
+//        $.each(data.data.results, function(i, elem) {
+//            option = $('<option value="' + elem.username + '">' + elem.username + '</option>');
+//            $('select#paypal_account').append(option);
+//        });
+//    });
 
     /**
      * Load modal paypal account.

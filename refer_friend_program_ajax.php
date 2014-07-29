@@ -31,9 +31,16 @@ class refer_friend_program_ajax {
 
         if (file_exists(__DIR__ . '/config/config.php')) {
             require __DIR__ . '/config/config.php';
+            $this->strUsername = $apiConfig['gr_username'];
+            $this->strAuthToken = $apiConfig['gr_auth_token'];
             $this->strAccount = $apiConfig['gr_rfp_account'];
+            $this->strCampaign = $apiConfig['gr_rfp_campaign'];
+            $this->strWidgetsPackage = $apiConfig['gr_rfp_widgets_package'];
+            $this->strApiUrl = $apiConfig['api_url'];
+            $this->strApiTokenKey = $apiConfig['api_token_key'];
+            $this->strApiTokenValue = $apiConfig['api_token_value'];
         }
-        
+
         // find post data
         $data = $_POST['data'];
 
