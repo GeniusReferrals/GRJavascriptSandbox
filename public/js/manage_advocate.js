@@ -68,24 +68,41 @@ $(document).ready(function() {
             $('#btn1_new_advocate').removeClass('btn-primary');
             $('#btn1_new_advocate').addClass('btn-info');
 
-            var arrAdvocate = '{"advocate": {"name":"' + name + '", "lastname":"' + last_name + '", "email":"' + email + '", "payout_threshold":20}}';
-            var objResponse1 = client.postAdvocate(auth, strAccount, $.parseJSON(arrAdvocate));
+            var objResponse1 = client.getAdvocates(auth, strAccount, 1, 1, 'email::' + email + '');
             objResponse1.success(function(data) {
+                if (data.data.total == 0)
+                {
+                    var arrAdvocate = '{"advocate": {"name":"' + name + '", "lastname":"' + last_name + '", "email":"' + email + '", "payout_threshold":20}}';
+                    var objResponse2 = client.postAdvocate(auth, strAccount, $.parseJSON(arrAdvocate));
+                    objResponse2.success(function(data) {
 
-                var objResponse2 = client.getAdvocates(auth, strAccount, 1, 1, 'email::' + email + '');
-                objResponse2.success(function(data) {
+                        var objResponse3 = client.getAdvocates(auth, strAccount, 1, 1, 'email::' + email + '');
+                        objResponse3.success(function(data) {
 
-                    strAdvocateToken = data.data.results[0].token;
-                    arrAdvocate = '{"currency_code":"USD"}';
-                    var objResponse3 = client.patchAdvocate(auth, strAccount, strAdvocateToken, $.parseJSON(arrAdvocate));
-                    objResponse3.success(function(data) {
+                            strAdvocateToken = data.data.results[0].token;
+                            arrAdvocate = '{"currency_code":"USD"}';
+                            var objResponse4 = client.patchAdvocate(auth, strAccount, strAdvocateToken, $.parseJSON(arrAdvocate));
+                            objResponse4.success(function(data) {
 
-                        var objResponse4 = client.getAdvocate(auth, strAccount, strAdvocateToken);
-                        objResponse4.success(function(data) {
-                            window.location = 'index.php';
+                                var objResponse5 = client.getAdvocate(auth, strAccount, strAdvocateToken);
+                                objResponse5.success(function(data) {
+                                    window.location = 'index.php';
+                                });
+                            });
                         });
                     });
-                });
+                }
+                else
+                {
+                    $('#no_result_found').hide();
+                    $('#unknow_error').hide();
+                    $('#unique_email_advocate').show();
+
+                    $('#btn1_new_advocate').button('reset');
+                    $('#btn1_new_advocate').removeClass('btn-info');
+                    $('#btn1_new_advocate').addClass('btn-primary');
+                }
+
             });
         }
     });

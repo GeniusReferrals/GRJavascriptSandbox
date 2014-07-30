@@ -61,6 +61,7 @@
 
             <div id="no_result_found" class="alert alert-info" style="display:none">No result were found!</div>
             <div id="no_result_found" class="alert alert-warning" style="display:none">Could not get the data, please try again later!</div>
+            <div id="unique_email_advocate" class="alert alert-warning" style="display:none">The email of advocate must be unique!</div>
 
             <div class="row marketing">
                 <div style="text-align: right; margin-bottom: 10px;">
