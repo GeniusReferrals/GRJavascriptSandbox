@@ -27,8 +27,8 @@ $(document).ready(function() {
             var objResponse1 = client.getAdvocates(auth, strAccount, 1, 1, 'email::' + email_advocate_referrer + '');
             objResponse1.success(function(data) {
 
-                aryReferral = '{"referral":{"referred_advocate_token":"' + advocate_token + '","referral_origin_slug":"' + referral_origin_slug + '","campaign_slug":"' + campaign_slug + '","http_referer":"http://www.geniusreferrals.com"}}';
-                objResponse2 = client.postReferral(auth, strAccount, data.data.results[0].token, $.parseJSON(aryReferral));
+                arrReferral = '{"referral":{"referred_advocate_token":"' + advocate_token + '","referral_origin_slug":"' + referral_origin_slug + '","campaign_slug":"' + campaign_slug + '","http_referer":"http://www.geniusreferrals.com"}}';
+                objResponse2 = client.postReferral(auth, strAccount, data.data.results[0].token, $.parseJSON(arrReferral));
                 objResponse2.success(function(data) {
                     $('#btn_create_referral').button('reset');
                     $('#btn_create_referral').removeClass('btn-info');
@@ -37,6 +37,8 @@ $(document).ready(function() {
                     $('#createReferralModal #advocate_referrer').val('');
                     document.getElementById('campaing').selectedIndex = 0;
                     document.getElementById('referral_origins').selectedIndex = 0;
+                    
+                    $('#createReferralModal').modal('hide');
                 });
             });
         }
@@ -60,8 +62,17 @@ $(document).ready(function() {
             $('#btn_checkup_bonus').removeClass('btn-primary');
             $('#btn_checkup_bonus').addClass('btn-info');
 
-            aryBonus = '{"advocate_token":"' + advocate_token + '","reference":"' + reference + '", "amount_of_payments":"' + amount_payments + '","payment_amount":"' + payment_amount + '"}';
-            var objResponse1 = client.getBonusesCheckup(auth, strAccount, $.parseJSON(aryBonus));
+            if (amount_payments == '' && payment_amount == '')
+                arrReferral = '{"advocate_token":"' + advocate_token + '","reference":"' + reference + '"}';
+            else if (amount_payments == '')
+                arrReferral = '{"advocate_token":"' + advocate_token + '","reference":"' + reference + '","payment_amount":"' + payment_amount + '"}';
+
+            else if (payment_amount == '')
+                arrReferral = '{"advocate_token":"' + advocate_token + '","reference":"' + reference + '", "amount_of_payments":"' + amount_payments + '"}';
+            else
+                arrReferral = '{"advocate_token":"' + advocate_token + '","reference":"' + reference + '", "amount_of_payments":"' + amount_payments + '","payment_amount":"' + payment_amount + '"}';
+
+            var objResponse1 = client.getBonusesCheckup(auth, strAccount, $.parseJSON(arrReferral));
             objResponse1.success(function(data) {
                 if (data.data.result == 'success') {
 
@@ -83,7 +94,7 @@ $(document).ready(function() {
                     });
                     $('#checkupBonusModal #status_success span#lb_message').html(data.data.message);
                     $('#checkupBonusModal #container_status_success #div_trace ul').html('');
-                    if (data.data.trace != '')
+                    if (typeof data.data.trace != 'undefined')
                     {
                         $.each(data.data.trace, function(i, elem) {
                             li = $('<li></li>').html(elem);
@@ -114,7 +125,7 @@ $(document).ready(function() {
                     });
                     $('#checkupBonusModal #status_fail span#lb_message').html(data.data.message);
                     $('#checkupBonusModal #container_status_fail #div_trace ul').html('');
-                    if (data.data.trace != '')
+                    if (typeof data.data.trace != 'undefined')
                     {
                         $.each(data.data.trace, function(i, elem) {
                             li = $('<li></li>').html(elem);
@@ -150,8 +161,19 @@ $(document).ready(function() {
             $('#btn_process_bonus').removeClass('btn-primary');
             $('#btn_process_bonus').addClass('btn-info');
 
-            aryBonus = '{"bonus":{"advocate_token":"' + advocate_token + '","reference":"' + reference + '","amount_of_payments":"' + amount_payments + '","payment_amount":"' + payment_amount + '"}}';
-            var objResponse1 = client.postBonuses(auth, strAccount, $.parseJSON(aryBonus));
+            if (amount_payments == '' && payment_amount == '')
+                arrBonus = '{"bonus":{"advocate_token":"' + advocate_token + '","reference":"' + reference + '"}}';
+
+            else if (amount_payments == '')
+                arrBonus = '{"bonus":{"advocate_token":"' + advocate_token + '","reference":"' + reference + '","payment_amount":"' + payment_amount + '"}}';
+
+            else if (payment_amount == '')
+                arrBonus = '{"bonus":{"advocate_token":"' + advocate_token + '","reference":"' + reference + '","amount_of_payments":"' + amount_payments + '"}}';
+
+            else
+                arrBonus = '{"bonus":{"advocate_token":"' + advocate_token + '","reference":"' + reference + '","amount_of_payments":"' + amount_payments + '","payment_amount":"' + payment_amount + '"}}';
+
+            var objResponse1 = client.postBonuses(auth, strAccount, $.parseJSON(arrBonus));
             objResponse1.success(function(data) {
 
                 var objResponse2 = client.getBonuses(auth, strAccount, 1, 1, '', '-created');

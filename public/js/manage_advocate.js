@@ -68,16 +68,16 @@ $(document).ready(function() {
             $('#btn1_new_advocate').removeClass('btn-primary');
             $('#btn1_new_advocate').addClass('btn-info');
 
-            var aryAdvocate = '{"advocate": {"name":"' + name + '", "lastname":"' + last_name + '", "email":"' + email + '", "payout_threshold":20}}';
-            var objResponse1 = client.postAdvocate(auth, strAccount, $.parseJSON(aryAdvocate));
+            var arrAdvocate = '{"advocate": {"name":"' + name + '", "lastname":"' + last_name + '", "email":"' + email + '", "payout_threshold":20}}';
+            var objResponse1 = client.postAdvocate(auth, strAccount, $.parseJSON(arrAdvocate));
             objResponse1.success(function(data) {
 
                 var objResponse2 = client.getAdvocates(auth, strAccount, 1, 1, 'email::' + email + '');
                 objResponse2.success(function(data) {
 
                     strAdvocateToken = data.data.results[0].token;
-                    aryAdvocate = '{"currency_code":"USD"}';
-                    var objResponse3 = client.patchAdvocate(auth, strAccount, strAdvocateToken, $.parseJSON(aryAdvocate));
+                    arrAdvocate = '{"currency_code":"USD"}';
+                    var objResponse3 = client.patchAdvocate(auth, strAccount, strAdvocateToken, $.parseJSON(arrAdvocate));
                     objResponse3.success(function(data) {
 
                         var objResponse4 = client.getAdvocate(auth, strAccount, strAdvocateToken);

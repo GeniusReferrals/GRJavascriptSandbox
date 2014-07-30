@@ -90,18 +90,18 @@ function activateDesactivate(data) {
         objResponse1.success(function(data) {
 
             $.each(data.data.results, function(i, elem) {
-                aryPaymentMethod = '{"advocate_payment_method":{"username":"' + username + '", "description":"' + description + '"}}';
-                client.putAdvocatePaymentMethod(auth, strAccount, strGRAdvocateToken, elem.id, $.parseJSON(aryPaymentMethod));
+                arrPaymentMethod = '{"advocate_payment_method":{"username":"' + username + '", "description":"' + description + '"}}';
+                client.putAdvocatePaymentMethod(auth, strAccount, strGRAdvocateToken, elem.id, $.parseJSON(arrPaymentMethod));
             });
         });
     }
 
     if (is_active === '1')
-        aryPaymentMethod = '{"advocate_payment_method":{"username":"' + username + '", "description":"' + description + '", "is_active":true}}';
+        arrPaymentMethod = '{"advocate_payment_method":{"username":"' + username + '", "description":"' + description + '", "is_active":true}}';
     else
-        aryPaymentMethod = '{"advocate_payment_method":{"username":"' + username + '", "description":"' + description + '"}}';
+        arrPaymentMethod = '{"advocate_payment_method":{"username":"' + username + '", "description":"' + description + '"}}';
 
-    var objResponse2 = client.putAdvocatePaymentMethod(auth, strAccount, strGRAdvocateToken, payment_method_id, $.parseJSON(aryPaymentMethod));
+    var objResponse2 = client.putAdvocatePaymentMethod(auth, strAccount, strGRAdvocateToken, payment_method_id, $.parseJSON(arrPaymentMethod));
     objResponse2.success(function(data) {
 
         var objResponse3 = client.getAdvocatePaymentMethods(auth, strAccount, strGRAdvocateToken, 1, 50);

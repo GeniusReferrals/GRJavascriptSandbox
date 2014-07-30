@@ -141,15 +141,15 @@ $(document).ready(function() {
             amount_redeem = $('#amount_redeem').val();
             paypal_account = $('#paypal_account').val();
             if (paypal_account != '')
-                aryRedemptionRequest = '{"redemption_request":{"advocate_token":"' + strGRAdvocateToken + '","request_status_slug":"requested","request_action_slug":"' + redemption_type + '", "currency_code":"USD", "amount":"' + amount_redeem + '", "description":"cash o pay-out", "advocates_paypal_username":"' + paypal_account + '"}}';
+                arrRedemptionRequest = '{"redemption_request":{"advocate_token":"' + strGRAdvocateToken + '","request_status_slug":"requested","request_action_slug":"' + redemption_type + '", "currency_code":"USD", "amount":"' + amount_redeem + '", "description":"cash o pay-out", "advocates_paypal_username":"' + paypal_account + '"}}';
             else
-                aryRedemptionRequest = '{"redemption_request":{"advocate_token":"' + strGRAdvocateToken + '","request_status_slug":"requested","request_action_slug":"' + redemption_type + '", "currency_code":"USD", "amount":"' + amount_redeem + '", "description":"cash o pay-out"}}';
+                arrRedemptionRequest = '{"redemption_request":{"advocate_token":"' + strGRAdvocateToken + '","request_status_slug":"requested","request_action_slug":"' + redemption_type + '", "currency_code":"USD", "amount":"' + amount_redeem + '", "description":"cash o pay-out"}}';
 
             $('#btn_redeem_bonuses').button('loading');
             $('#btn_redeem_bonuses').removeClass('btn-primary');
             $('#btn_redeem_bonuses').addClass('btn-info');
 
-            var objResponse1 = client.postRedemptionRequest(auth, strAccount, $.parseJSON(aryRedemptionRequest));
+            var objResponse1 = client.postRedemptionRequest(auth, strAccount, $.parseJSON(arrRedemptionRequest));
             objResponse1.success(function(data) {
 
                 var objResponse2 = client.getRedemptionRequests(auth, strAccount, 1, 50);
