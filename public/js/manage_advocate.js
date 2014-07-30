@@ -226,13 +226,13 @@ function validateSearchAdvocate()
  */
 function createReferral(advocate_token)
 {
-    var stepRequest = $.ajax({
+    var request = $.ajax({
         type: "GET",
         url: 'create_referral.php',
         data: {'advocate_token': advocate_token}
     });
     $('#createReferralModal').modal('show');
-    stepRequest.done(function(response) {
+    request.done(function(response) {
         if (response) {
             $('#createReferralModal').html(response);
         }
@@ -244,13 +244,13 @@ function createReferral(advocate_token)
  */
 function checkupBonus(advocate_token)
 {
-    var stepRequest = $.ajax({
+    var request = $.ajax({
         type: "GET",
         url: 'checkup_bonus.php',
         data: {'advocate_token': advocate_token}
     });
     $('#checkupBonusModal').modal('show');
-    stepRequest.done(function(response) {
+    request.done(function(response) {
         if (response) {
             $('#checkupBonusModal').html(response);
             $('#checkupBonusModal').html(response);
@@ -268,13 +268,13 @@ function checkupBonus(advocate_token)
  */
 function processBonus(advocate_token)
 {
-    var stepRequest = $.ajax({
+    var request = $.ajax({
         type: "GET",
         url: 'process_bonus.php',
         data: {'advocate_token': advocate_token}
     });
     $('#processBonusModal').modal('show');
-    stepRequest.done(function(response) {
+    request.done(function(response) {
         if (response) {
             $('#processBonusModal').html(response);
             $('#processBonusModal #reference').val('');

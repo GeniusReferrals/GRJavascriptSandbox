@@ -49,12 +49,12 @@ $(document).ready(function() {
     $('#new_paypal_account_ajax').click(function(e) {
 
         e.preventDefault();
-        var stepRequest = $.ajax({
+        var request = $.ajax({
             type: "GET",
             url: 'new_paypal_account.php'
         });
         $('#newPaypalAccountModal').modal('show');
-        stepRequest.done(function(response) {
+        request.done(function(response) {
             if (response) {
                 $('#newPaypalAccountModal').html(response);
             }

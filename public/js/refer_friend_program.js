@@ -118,12 +118,12 @@ $(document).ready(function() {
      * Load modal paypal account.
      */
     $('#paypal_account_actions').click(function(e) {
-        var stepRequest = $.ajax({
+        var request = $.ajax({
             type: "GET",
             url: 'paypal_account_list.php'
         });
         $('#paypalAccountModal').modal('show');
-        stepRequest.done(function(response) {
+        request.done(function(response) {
             if (response) {
                 $('#paypalAccountModal').html(response);
             }
