@@ -154,6 +154,7 @@ $(document).ready(function() {
 
                 var objResponse2 = client.getRedemptionRequests(auth, strAccount, 1, 50);
                 objResponse2.success(function(data) {
+                    $('#table_redemption tbody tr').html('');
                     $.each(data.data.results, function(i, elem) {
                         row_redemption = $('<tr>' +
                                 '<td>' + dateFormat(new Date(elem.created), "mediumDate") + '</td>' +
@@ -166,7 +167,7 @@ $(document).ready(function() {
                         $('#table_redemption').append(row_redemption);
                     });
                     $('#amount_redeem').val('');
-                    $('#redemption_type').val();
+                    document.getElementById('redemption_type').selectedIndex = 0;
                     document.getElementById('paypal_account').selectedIndex = 0;
 
                     $('#btn_redeem_bonuses').button('reset');

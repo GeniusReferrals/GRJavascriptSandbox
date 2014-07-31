@@ -253,7 +253,6 @@ function checkupBonus(advocate_token)
     request.done(function(response) {
         if (response) {
             $('#checkupBonusModal').html(response);
-            $('#checkupBonusModal').html(response);
             $('#checkupBonusModal #reference').val('');
             $('#checkupBonusModal #amount_payments').val('');
             $('#checkupBonusModal #payment_amount').val('');
