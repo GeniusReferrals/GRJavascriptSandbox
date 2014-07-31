@@ -37,7 +37,7 @@ $(document).ready(function() {
                     $('#createReferralModal #advocate_referrer').val('');
                     document.getElementById('campaing').selectedIndex = 0;
                     document.getElementById('referral_origins').selectedIndex = 0;
-                    
+
                     $('#createReferralModal').modal('hide');
                 });
             });
@@ -50,6 +50,30 @@ $(document).ready(function() {
     $('#btn_checkup_bonus').click(function(e) {
 
         e.preventDefault();
+
+        $('#checkupBonusModal #status_success span#lb_status').html('');
+        $('#checkupBonusModal #status_success span#lb_reference').html('');
+        $('#checkupBonusModal #status_success .advocate_details').html('');
+        $('#checkupBonusModal #status_success .advocate_details').attr('id', '');
+        $('#checkupBonusModal #status_success .btn-details-campaign').html('');
+        $('#checkupBonusModal #status_success .btn-details-campaign').attr('id', '');
+        $('#checkupBonusModal #status_success span#lb_message').html('');
+        $('#checkupBonusModal #container_status_success #div_trace ul').html('');
+
+        $('#checkupBonusModal #status_fail span#lb_status').html('');
+        $('#checkupBonusModal #status_fail span#lb_reference').html('');
+        $('#checkupBonusModal #status_fail .advocate_details').html('');
+        $('#checkupBonusModal #status_fail .advocate_details').attr('id', '');
+        $('#checkupBonusModal #status_fail .btn-details-campaign').html('');
+        $('#checkupBonusModal #status_fail .btn-details-campaign').attr('id', '');
+        $('#checkupBonusModal #status_fail span#lb_message').html('');
+        $('#checkupBonusModal #container_status_fail #div_trace ul').html('');
+
+        $('#checkupBonusModal #container_status_fail #div_trace').css('display', 'none');
+        $('#checkupBonusModal #container_status_success #div_trace').css('display', 'none');
+        $('#checkupBonusModal #container_status_success').css('display', 'none');
+        $('#checkupBonusModal #container_status_fail').css('display', 'none');
+
         var isValid = validateCheckupBonus();
         if (isValid)
         {
@@ -149,6 +173,15 @@ $(document).ready(function() {
      */
     $('#btn_process_bonus').click(function(e) {
         e.preventDefault();
+
+        $('#processBonusModal #status_success span#lb_status').html('');
+        $('#processBonusModal #status_success span#lb_bonus_amount').html('');
+        $('#processBonusModal #status_success span#lb_advocates_referrer').html('');
+        $('#processBonusModal #status_fail span#lb_status').html('');
+
+        $('#processBonusModal #container_status_success').css('display', 'none');
+        $('#processBonusModal #container_status_fail').css('display', 'none');
+
         var isValid = validateProcessBonus();
         if (isValid)
         {
