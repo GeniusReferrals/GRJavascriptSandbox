@@ -12,6 +12,7 @@ El proceso de instalación de esta aplicación GRJavascriptSandbox es muy sencil
 ## 1- Instalar aplicación GRJavascriptSandbox. Puede escoger cualquiera de estas 2 opciones:
 
 ### 1- Clone la aplicación usando git: 
+
 ```
 git clone git@github.com:GeniusReferrals/GRJavascriptSandbox.git
 ```
