@@ -33,11 +33,11 @@
                             <img src="public/images/social/linkedin.png" class="img-rounded">
                         </a>
                     </div>
-                    <div class="col-xs-2 col-sm-1">
+                    <!--<div class="col-xs-2 col-sm-1">
                         <a id="link_pinterest" href="">
                             <img src="public/images/social/pinterest.png" class="img-rounded">
                         </a>
-                    </div>
+                    </div>-->
                     <div style="clear: both;"></div>
                 </div>
             </div>
