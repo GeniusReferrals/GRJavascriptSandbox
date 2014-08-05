@@ -325,7 +325,10 @@ function validate()
 {
     $('#form_redeem_bonuses').validate({
         rules: {
-            'amount_redeem': {required: true},
+            'amount_redeem': {
+                required: true,
+                max: 20
+            },
             'redemption_type': {required: true}
         }
     });
