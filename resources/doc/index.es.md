@@ -34,7 +34,7 @@ Recomendamos composer para intallar la aplicación.
 curl -sS https://getcomposer.org/installer | php
 ```
 
-#### 2- Adicionar el packete GUZZLE como una dependencia ejecutando:  
+#### 2- Adicionar el paquete GUZZLE como una dependencia ejecutando:  
 
 ```
 php composer.phar require guzzle/guzzle:~3.7
