@@ -9,7 +9,7 @@ Instalación:
 
 El proceso de instalación de esta aplicación GRJavascriptSandbox es muy sencillo 
 
-# 1- Instalar aplicación GRJavascriptSandbox. Puede escoger cualquiera de estas 2 opciones:
+## 1- Instalar aplicación GRJavascriptSandbox. Puede escoger cualquiera de estas 2 opciones:
 
 ### 1- Clone la aplicación usando git: 
 ```
@@ -19,7 +19,7 @@ git clone git@github.com:GeniusReferrals/GRJavascriptSandbox.git
 ### 2- Descargar la aplicación compactada utilizando este vínculo [GRJavascriptSandbox](https://github.com/GeniusReferrals/GRJavascriptSandbox/archive/master.zip).
 
 
-# 2- Instalar vendor GUZZLE con sus dependencias, necesarias para el desarrollo de la aplicación GRJavascriptSandbox.
+## 2- Instalar vendor GUZZLE con sus dependencias, necesarias para el desarrollo de la aplicación GRJavascriptSandbox.
 
 ### Usando Composer
 
@@ -47,22 +47,22 @@ La aplicación consta de 2 páginas que se describen a continuación:
 
 ### 1- Manage advocate, en la cual se pueden realizar las siguientes funcionalidades::
 
-#### 1- List advocate
-#### 2- Search advocate
-#### 3- Create advocate
+ - List advocate
+ - Search advocate
+ - Create advocate
 
 Por cada advocate se pueden realizar las siguientes funcionalidades:
 
-#### 1- Refer a friend program
-#### 2- Create referrer
-#### 3- Process bonus
-#### 4- Checkup bonus
+ - Refer a friend program
+ - Create referrer
+ - Process bonus
+ - Checkup bonus
 
 ### 2- Refer a friend program (Consta de 4 tabs)
 
-#### 1- Overview
-#### 2- Referral tools
-#### 3- Bonuses earned
-#### 4- Redeem bonuses
+ - Overview
+ - Referral tools
+ - Bonuses earned
+ - Redeem bonuses
 
 Para reportar un problema utilice [Github issue tracker.](https://github.com/GeniusReferrals/GRJavascriptSandbox/issues)
