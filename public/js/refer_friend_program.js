@@ -9,7 +9,7 @@ $(document).ready(function() {
 
     var client = new gr.client();
     var auth = new gr.auth(strUsername, strAuthToken);
-
+    
     sessionStorage.setItem('strAdvocateToken', $('#advocate_token').val());
 
     if (sessionStorage.getItem('strAdvocateToken') != '')
@@ -42,7 +42,6 @@ $(document).ready(function() {
         $('#link_twitter').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['twitter-post']);
         $('#link_google').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['google-1']);
         $('#link_linkedin_post').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['linkedin-post']);
-        //$('#link_pinterest').attr('href', 'https://' + data.data[strCampaign][strWidgetsPackage]['pin-it']);
         $('#personal_url').val('https://' + data.data[strCampaign][strWidgetsPackage]['personal']);
     });
 
@@ -210,111 +209,6 @@ $(document).ready(function() {
         $('#content_tab_referral_tools').removeClass('active');
         $('#content_tab_bonuses_earned').removeClass('active');
         $('#content_tab_redeem_bonuses').addClass('active');
-    });
-
-    /**
-     * Load graph share daily participation.
-     */
-    flag_shares_participation = true;
-    $('#shares_participation_tab').on('shown.bs.tab', function(e) {
-
-        if (flag_shares_participation)
-        {
-            var request = $.ajax({
-                type: "POST",
-                data: {'data': {'advocate_token': strGRAdvocateToken}},
-                url: 'refer_friend_program_ajax.php?method=getShareDailyParticipation'
-            });
-            request.done(function(data) {
-                var data = jQuery.parseJSON(data);
-                $('#averages_share_daily_participation').attr('data-averages-share', data.message[0]);
-                $('#totals_share_daily_participation').attr('data-totals-share', data.message[1]);
-
-                generateChartPie("pie-chart-share-daily", $('#averages_share_daily_participation').data('averages-share'));
-                generateChartSerial("serial-chart-share-daily", $('#totals_share_daily_participation').data('totals-share'));
-
-                flag_shares_participation = false;
-            });
-        }
-
-    });
-
-    /**
-     * Load graph click daily participation.
-     */
-    flag_clicks_participation = true;
-    $('#clicks_participation_tab').on('shown.bs.tab', function(e) {
-
-        if (flag_clicks_participation)
-        {
-            var request = $.ajax({
-                type: "POST",
-                data: {'data': {'advocate_token': strGRAdvocateToken}},
-                url: 'refer_friend_program_ajax.php?method=getClickDailyParticipation'
-            });
-            request.done(function(data) {
-                var data = jQuery.parseJSON(data);
-                $('#averages_click_daily_participation').attr('data-averages-click', data.message[0]);
-                $('#totals_click_daily_participation').attr('data-totals-click', data.message[1]);
-
-                generateChartPie("pie-chart-click-daily", $('#averages_click_daily_participation').data('averages-click'));
-                generateChartSerial("serial-chart-click-daily", $('#totals_click_daily_participation').data('totals-click'));
-
-                flag_clicks_participation = false;
-            });
-        }
-    });
-
-    /**
-     * Load graph referral daily participation.
-     */
-    flag_referral_participation = true;
-    $('#referral_participation_tab').on('shown.bs.tab', function(e) {
-
-        if (flag_referral_participation)
-        {
-            var request = $.ajax({
-                type: "POST",
-                data: {'data': {'advocate_token': strGRAdvocateToken}},
-                url: 'refer_friend_program_ajax.php?method=getReferralDailyParticipation'
-            });
-            request.done(function(data) {
-                var data = jQuery.parseJSON(data);
-                $('#averages_daily_participation').attr('data-averages-participation', data.message[0]);
-                $('#totals_daily_participation').attr('data-totals-participation', data.message[1]);
-
-                generateChartPie("pie-chart-referral", $('#averages_daily_participation').data('averages-participation'));
-                generateChartSerial("serial-chart-referral", $('#totals_daily_participation').data('totals-participation'));
-
-                flag_referral_participation = false;
-            });
-        }
-    });
-
-    /**
-     * Load graph bonuses daily given.
-     */
-    flag_bonuses_given = true;
-    $('#bonuses_given_tab').on('shown.bs.tab', function(e) {
-
-        if (flag_bonuses_given)
-        {
-            var request = $.ajax({
-                type: "POST",
-                data: {'data': {'advocate_token': strGRAdvocateToken}},
-                url: 'refer_friend_program_ajax.php?method=getBonusesDailyGiven'
-            });
-            request.done(function(data) {
-                var data = jQuery.parseJSON(data);
-                $('#averages_bonuses_daily_given').attr('data-averages-bonuses', data.message[0]);
-                $('#totals_bonuses_daily_given').attr('data-totals-bonuses', data.message[1]);
-
-                generateChartPie("pie-chart-bonuses", $('#averages_bonuses_daily_given').data('averages-bonuses'));
-                generateChartSerial("serial-chart-bonuses", $('#totals_bonuses_daily_given').data('totals-bonuses'));
-
-                flag_bonuses_given = false;
-            });
-        }
     });
 });
 
