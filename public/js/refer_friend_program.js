@@ -221,7 +221,7 @@ function validate()
         rules: {
             'amount_redeem': {
                 required: true,
-                max: 20
+                min: 20
             },
             'redemption_type': {required: true}
         }
