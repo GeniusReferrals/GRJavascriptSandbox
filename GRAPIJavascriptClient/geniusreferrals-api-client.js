@@ -1304,6 +1304,232 @@ gr.client.prototype.getAdvocatesShareLinks = function(auth, account_slug, advoca
     });
 };
 
+/**
+ * Delete advocates by account slug.
+ * 
+ * @param object auth. Genius Referral authentication object
+ * @param string account_slug. The client account slug
+ * @return jqXHR object
+ */
+gr.client.prototype.deleteAdvocates = function(auth, account_slug) {
+    auth = typeof auth !== 'undefined' ? auth : '';
+    account_slug = typeof account_slug !== 'undefined' ? account_slug : '';
+
+    return $.ajax({
+        url: gr.baseUrl + '/accounts/' + account_slug + '/advocates',
+        type: 'GET',
+        headers: {
+            "Accept": "application/json; charset=utf-8; version=" + gr.apiVersion,
+            "X-WSSE": auth.generateWSSEHeader()
+        }
+    });
+};
+
+/**
+ * Delete advocate by account slug and advocate token.
+ * 
+ * @param object auth. Genius Referral authentication object
+ * @param string account_slug. The client account slug
+ * @param string advocate_token. The advocate token
+ * @return jqXHR object
+ */
+gr.client.prototype.deleteAdvocate = function(auth, account_slug, advocate_token) {
+    auth = typeof auth !== 'undefined' ? auth : '';
+    account_slug = typeof account_slug !== 'undefined' ? account_slug : '';
+    advocate_token = typeof advocate_token !== 'undefined' ? advocate_token : '';
+
+    return $.ajax({
+        url: gr.baseUrl + '/accounts/' + account_slug + '/advocates/' + advocate_token,
+        type: 'GET',
+        headers: {
+            "Accept": "application/json; charset=utf-8; version=" + gr.apiVersion,
+            "X-WSSE": auth.generateWSSEHeader()
+        }
+    });
+};
+
+/**
+ * Get bonuses daily given.
+ * 
+ * @param object auth. Genius Referral authentication object
+ * @param string account_slug. The account slug
+ * @param string campaign_slug. The campaign slug
+ * @param string advocate_token. The advocate token
+ * @param string from.
+ * @param string to.
+ * @return jqXHR object
+ */
+gr.client.prototype.getReportsBonusesDailyGiven = function(auth, account_slug, campaign_slug, advocate_token, from, to) {
+    auth = typeof auth !== 'undefined' ? auth : '';
+    account_slug = typeof account_slug !== 'undefined' ? account_slug : '';
+    campaign_slug = typeof campaign_slug !== 'undefined' ? campaign_slug : '';
+    advocate_token = typeof advocate_token !== 'undefined' ? advocate_token : '';
+    from = typeof from !== 'undefined' ? from : '';
+    to = typeof to !== 'undefined' ? to : '';
+    
+    filter = 'account_slug=' + account_slug +'&';
+    filter += 'campaign_slug=' + campaign_slug +'&';
+    filter += 'advocate_token=' + advocate_token +'&';
+    filter += 'from=' + from +'&';
+    filter += 'to=' + to +'&';
+    return $.ajax({
+        url: gr.baseUrl + '/reports/bonuses-daily-given',
+        type: 'GET',
+        data: filter,
+        headers: {
+            "Accept": "application/json; charset=utf-8; version=" + gr.apiVersion,
+            "X-WSSE": auth.generateWSSEHeader()
+        }
+    });
+};
+
+/**
+ * Get click daily participation.
+ * 
+ * @param object auth. Genius Referral authentication object
+ * @param string account_slug. The account slug
+ * @param string campaign_slug. The campaign slug
+ * @param string advocate_token. The advocate token
+ * @param string from.
+ * @param string to.
+ * @return jqXHR object
+ */
+gr.client.prototype.getReportsClickDailyParticipation = function(auth, account_slug, campaign_slug, advocate_token, from, to) {
+    auth = typeof auth !== 'undefined' ? auth : '';
+    account_slug = typeof account_slug !== 'undefined' ? account_slug : '';
+    campaign_slug = typeof campaign_slug !== 'undefined' ? campaign_slug : '';
+    advocate_token = typeof advocate_token !== 'undefined' ? advocate_token : '';
+    from = typeof from !== 'undefined' ? from : '';
+    to = typeof to !== 'undefined' ? to : '';
+
+    filter = 'account_slug=' + account_slug +'&';
+    filter += 'campaign_slug=' + campaign_slug +'&';
+    filter += 'advocate_token=' + advocate_token +'&';
+    filter += 'from=' + from +'&';
+    filter += 'to=' + to;
+
+    return $.ajax({
+        url: gr.baseUrl + '/reports/click-daily-participation',
+        type: 'GET',
+        data: filter,
+        headers: {
+            "Accept": "application/json; charset=utf-8; version=" + gr.apiVersion,
+            "X-WSSE": auth.generateWSSEHeader()
+        }
+    });
+};
+
+/**
+ * Get referral daily participation.
+ * 
+ * @param object auth. Genius Referral authentication object
+ * @param string account_slug. The account slug
+ * @param string campaign_slug. The campaign slug
+ * @param string advocate_token. The advocate token
+ * @param string from.
+ * @param string to.
+ * @return jqXHR object
+ */
+gr.client.prototype.getReportsReferralDailyParticipation = function(auth, account_slug, campaign_slug, advocate_token, from, to) {
+    auth = typeof auth !== 'undefined' ? auth : '';
+    account_slug = typeof account_slug !== 'undefined' ? account_slug : '';
+    campaign_slug = typeof campaign_slug !== 'undefined' ? campaign_slug : '';
+    advocate_token = typeof advocate_token !== 'undefined' ? advocate_token : '';
+    from = typeof from !== 'undefined' ? from : '';
+    to = typeof to !== 'undefined' ? to : '';
+
+    filter = 'account_slug=' + account_slug +'&';
+    filter += 'campaign_slug=' + campaign_slug +'&';
+    filter += 'advocate_token=' + advocate_token +'&';
+    filter += 'from=' + from +'&';
+    filter += 'to=' + to;
+
+    return $.ajax({
+        url: gr.baseUrl + '/reports/referral-daily-participation',
+        type: 'GET',
+        data: filter,
+        headers: {
+            "Accept": "application/json; charset=utf-8; version=" + gr.apiVersion,
+            "X-WSSE": auth.generateWSSEHeader()
+        }
+    });
+};
+
+/**
+ * Get share daily participation.
+ * 
+ * @param object auth. Genius Referral authentication object
+ * @param string account_slug. The account slug
+ * @param string campaign_slug. The campaign slug
+ * @param string advocate_token. The advocate token
+ * @param string from.
+ * @param string to.
+ * @return jqXHR object
+ */
+gr.client.prototype.getReportsShareDailyParticipation = function(auth, account_slug, campaign_slug, advocate_token, from, to) {
+    auth = typeof auth !== 'undefined' ? auth : '';
+    account_slug = typeof account_slug !== 'undefined' ? account_slug : '';
+    campaign_slug = typeof campaign_slug !== 'undefined' ? campaign_slug : '';
+    advocate_token = typeof advocate_token !== 'undefined' ? advocate_token : '';
+    from = typeof from !== 'undefined' ? from : '';
+    to = typeof to !== 'undefined' ? to : '';
+
+    filter = 'account_slug=' + account_slug +'&';
+    filter += 'campaign_slug=' + campaign_slug +'&';
+    filter += 'advocate_token=' + advocate_token +'&';
+    filter += 'from=' + from +'&';
+    filter += 'to=' + to;
+
+    return $.ajax({
+        url: gr.baseUrl + '/reports/share-daily-participation',
+        type: 'GET',
+        data: filter,
+        headers: {
+            "Accept": "application/json; charset=utf-8; version=" + gr.apiVersion,
+            "X-WSSE": auth.generateWSSEHeader()
+        }
+    });
+};
+
+/**
+ * Get top advocates.
+ * 
+ * @param object auth. Genius Referral authentication object
+ * @param string account_slug. The account slug
+ * @param string campaign_slug. The campaign slug
+ * @param integer limit. Maximum number of results to return in the response.
+ * @param string from.
+ * @param string to.
+ * @return jqXHR object
+ */
+gr.client.prototype.getReportsTopAdvocates = function(auth, account_slug, campaign_slug, limit, from, to) {
+    auth = typeof auth !== 'undefined' ? auth : '';
+    account_slug = typeof account_slug !== 'undefined' ? account_slug : '';
+    campaign_slug = typeof campaign_slug !== 'undefined' ? campaign_slug : '';
+    limit = typeof limit !== 'undefined' ? limit : '10';
+    from = typeof from !== 'undefined' ? from : '';
+    to = typeof to !== 'undefined' ? to : '';
+
+    filter = 'account_slug=' + account_slug +'&';
+    filter += 'campaign_slug=' + campaign_slug +'&';
+    filter += 'limit=' + limit +'&';
+    filter += 'from=' + from +'&';
+    filter += 'to=' + to;
+
+    return $.ajax({
+        url: gr.baseUrl + '/reports/top-advocates',
+        type: 'GET',
+        data: filter,
+        headers: {
+            "Accept": "application/json; charset=utf-8; version=" + gr.apiVersion,
+            "X-WSSE": auth.generateWSSEHeader()
+        }
+    });
+};
+
+
+
+
 
 // wsse.js - Generate WSSE authentication header in JavaScript
 // (C) 2005 Victor R. Ruiz <victor*sixapart.com> - http://rvr.typepad.com/
